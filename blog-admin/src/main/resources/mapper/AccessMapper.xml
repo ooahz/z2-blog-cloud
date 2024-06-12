@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.admin.mapper.AccessMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.admin.model.entity.Access">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <id property="articleId" column="article_id" jdbcType="BIGINT"/>
+            <result property="uv" column="uv" jdbcType="INTEGER"/>
+            <result property="pv" column="pv" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="date" column="date" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,article_id,uv,
+        pv,type,date
+    </sql>
+
+    <select id="getWebsiteAccess" resultType="cn.ahzoo.admin.model.entity.Access">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM b_access
+        WHERE type = 1
+        ORDER BY date DESC
+        LIMIT 1
+    </select>
+</mapper>

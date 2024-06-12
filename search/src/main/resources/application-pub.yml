@@ -1,0 +1,36 @@
+server:
+  port: 8070
+spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+
+  elasticsearch:
+#    uris: localhost:9200
+    uris: { es地址 }:{es端口}
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          # 全局设置
+          default:
+            connect-timeout: 30000
+            read-timeout: 30000
+      compression:
+        # 开启请求压缩
+        request:
+          enabled: true
+          mime-types: [ "text/xml", "application/xml", "application/json", "video/mp4", "text/plain" ]
+          min-request-size: 102400
+        # 开启响应压缩
+        response:
+          enabled: true
+    nacos:
+      discovery:
+#        server-addr: localhost:8848
+        server-addr: { nacos地址 }:{ nacos端口 }
+        username: { nacos用户名 }
+        password: { nacos密码 }
+        ephemeral: false

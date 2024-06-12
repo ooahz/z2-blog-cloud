@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.admin.mapper.ColumnMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.admin.model.entity.Column">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+            <result property="style" column="style" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ColumnItemMap" type="cn.ahzoo.admin.model.vo.ColumnVO">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+        <collection property="categoryList" ofType="cn.ahzoo.admin.model.vo.CategoryVO">
+            <id property="id" column="cid" jdbcType="BIGINT"/>
+            <result property="name" column="cname" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,description,
+        thumbnail,style
+    </sql>
+
+    <sql id="VO_Column_List">
+        c.id,c.name,c.description,
+        c.thumbnail
+    </sql>
+
+    <select id="listByArticleId" resultType="cn.ahzoo.admin.model.dto.ColumnDTO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM b_column c
+        LEFT JOIN b_article_column ac
+        ON c.id = ac.column_id
+        WHERE ac.article_id = #{articleId}
+    </select>
+
+    <select id="countColumnByCategoryId" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM b_category_column
+        WHERE category_id = #{categoryId}
+    </select>
+
+    <select id="listColumnItem" resultMap="ColumnItemMap">
+        SELECT<include refid="VO_Column_List"/>, ca.id AS cid,ca.name AS cname
+        FROM b_column c
+        LEFT JOIN b_category_column cc
+        ON c.id = cc.column_id
+        LEFT JOIN b_category ca
+        ON ca.id = cc.category_id
+        <if test="categoryId != null">
+            WHERE cc.category_id = #{categoryId}
+        </if>
+        LIMIT #{paginationIndex}, #{size}
+    </select>
+
+    <select id="listAll" resultType="cn.ahzoo.admin.model.vo.BriefColumnVO">
+        SELECT id,name
+        FROM b_column
+    </select>
+
+    <select id="listColumnIdsByArticleId" resultType="java.lang.Long">
+        SELECT column_id
+        FROM b_article_column
+        WHERE article_id = #{articleId}
+    </select>
+
+
+    <insert id="insertCategoryColumn">
+        INSERT INTO b_category_column (category_id,column_id)
+        VALUES
+        <foreach collection="categoryIds" item="categoryId" separator=",">
+            (#{categoryId},#{columnId})
+        </foreach>
+    </insert>
+
+    <delete id="removeCategoryColumn">
+        DELETE FROM b_category_column
+        WHERE column_id = #{columnId}
+        AND category_id IN
+        <foreach collection="categoryIds" item="categoryId" open="(" separator="," close=")">
+            #{categoryId}
+        </foreach>
+    </delete>
+
+    <delete id="removeByColumnId">
+        DELETE b, bc
+        FROM b_column b
+        JOIN b_category_column bc
+        ON b.id = bc.column_id
+        WHERE b.id = #{columnId}
+    </delete>
+</mapper>

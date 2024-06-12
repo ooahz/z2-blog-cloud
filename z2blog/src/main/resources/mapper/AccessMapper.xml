@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.z2blog.mapper.AccessMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.z2blog.model.entity.Access">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="articleId" column="article_id" jdbcType="BIGINT"/>
+            <result property="uv" column="uv" jdbcType="INTEGER"/>
+            <result property="pv" column="pv" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="date" column="date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,article_id,uv,
+        pv,type,date
+    </sql>
+</mapper>

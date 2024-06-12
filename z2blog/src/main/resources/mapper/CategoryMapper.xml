@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.z2blog.mapper.CategoryMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.z2blog.model.entity.Category">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="CategoryColumnMap" type="cn.ahzoo.z2blog.model.vo.CategoryColumnVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <collection property="columnList" ofType="cn.ahzoo.z2blog.model.vo.BriefColumnVO">
+            <id property="id" column="column_id" jdbcType="BIGINT"/>
+            <result property="name" column="column_name" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name
+    </sql>
+
+    <select id="listCategoryColumnByArticleId" resultMap="CategoryColumnMap">
+        SELECT ca.id,
+               ca.name,
+               col.id column_id,
+               col.name column_name
+        FROM b_category ca
+                 LEFT JOIN b_category_column cc
+                           ON ca.id = cc.category_id
+                 LEFT JOIN b_column col
+                           ON col.id = cc.column_id
+                 LEFT JOIN b_article_column ac
+                           ON col.id = ac.column_id
+        WHERE ac.article_id = #{articleId}
+    </select>
+</mapper>

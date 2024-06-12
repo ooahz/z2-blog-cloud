@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.admin.mapper.RoleMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.admin.model.entity.Role">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="roleCode" column="role_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,role_code
+    </sql>
+    <select id="listRoleCodeByUserId" resultType="java.lang.String">
+        SELECT role_code FROM sys_role WHERE user_id = #{userId}
+    </select>
+</mapper>

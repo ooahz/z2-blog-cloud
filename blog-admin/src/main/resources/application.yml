@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: prod
+  application:
+    name: ahzoo-blog-admin
+
+server:
+  servlet:
+    context-path: /admin
