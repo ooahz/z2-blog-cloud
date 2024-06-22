@@ -16,14 +16,14 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
     private final ArticleMapper articleMapper;
 
     @Override
-    public List<ArticleItemVO> listArticleByColumnId(long id, int pagination, String sortBy) {
-        return listArticleByColumnId(id, pagination, sortBy, Constant.PAGE_SIZE);
+    public List<ArticleItemVO> listArticleByColumnId(long id, int pagination) {
+        return listArticleByColumnId(id, pagination, Constant.PAGE_SIZE);
     }
 
     @Override
-    public List<ArticleItemVO> listArticleByColumnId(long id, int pagination, String sortBy, int pageSize) {
+    public List<ArticleItemVO> listArticleByColumnId(long id, int pagination, int pageSize) {
         int paginationIndex = pagination - 1;
-        return articleMapper.listArticleByColumnId(id, paginationIndex, pageSize, sortBy);
+        return articleMapper.listArticleByColumnId(id, paginationIndex, pageSize);
     }
 
     @Override

@@ -4,7 +4,6 @@ import cn.ahzoo.utils.model.Result;
 import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
 import cn.ahzoo.z2blog.constant.Constant;
-import cn.ahzoo.z2blog.constant.SortFieldConstant;
 import cn.ahzoo.z2blog.mapper.ColumnMapper;
 import cn.ahzoo.z2blog.model.entity.Column;
 import cn.ahzoo.z2blog.model.vo.ColumnInfoVO;
@@ -57,7 +56,7 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
     }
 
     private List<ArticleItemVO> listArticleByColumnId(long columnId) {
-        return articleColumnService.listArticleByColumnId(columnId, 1, SortFieldConstant.SORT_DEFAULT, 3);
+        return articleColumnService.listArticleByColumnId(columnId, 1, 3);
     }
 }
 

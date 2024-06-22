@@ -12,11 +12,11 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
 
-    List<ArticleItemVO> listArticleByColumnId(long columnId, int paginationIndex, int size, String sortBy);
+    List<ArticleItemVO> listArticleByColumnId(long columnId, int paginationIndex, int size);
 
     Long countArticleByColumnId(long columnId);
 
-    List<ArticleItemVO> listArticleItem(int paginationIndex, int size, String sortBy);
+    List<ArticleItemVO> listArticleItem(int paginationIndex, int size);
 
     ArticleContentDTO getArticleContentById(long articleId);
 

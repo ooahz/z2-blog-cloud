@@ -4,11 +4,9 @@ import cn.ahzoo.utils.model.Result;
 import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
 import cn.ahzoo.z2blog.constant.Constant;
-import cn.ahzoo.z2blog.constant.SortFieldConstant;
 import cn.ahzoo.z2blog.mapper.ArticleMapper;
 import cn.ahzoo.z2blog.model.dto.ArticleContentDTO;
 import cn.ahzoo.z2blog.model.entity.Article;
-import cn.ahzoo.z2blog.model.record.ArticleESRecord;
 import cn.ahzoo.z2blog.model.vo.ArticleItemVO;
 import cn.ahzoo.z2blog.model.vo.ArticleVO;
 import cn.ahzoo.z2blog.service.AccessService;
@@ -32,7 +30,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     public ResultList<List<ArticleItemVO>> listArticle(int pagination) {
         int paginationIndex = pagination - 1;
         List<ArticleItemVO> articleItemVOList = baseMapper
-                .listArticleItem(paginationIndex, Constant.PAGE_SIZE, SortFieldConstant.SORT_DEFAULT);
+                .listArticleItem(paginationIndex, Constant.PAGE_SIZE);
         long countArticle = baseMapper.countArticle();
         return ResultList.success(
                 new ResultPage(countArticle, articleItemVOList.size(), Constant.PAGE_SIZE, pagination),
@@ -50,7 +48,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     @Override
     public ResultList<List<ArticleItemVO>> listArticleByColumnId(long columnId, int pagination) {
         List<ArticleItemVO> articleItemList = articleColumnService
-                .listArticleByColumnId(columnId, pagination, SortFieldConstant.SORT_DEFAULT);
+                .listArticleByColumnId(columnId, pagination);
         return ResultList.success(ResultPage.emptyPage(), articleItemList);
     }
 

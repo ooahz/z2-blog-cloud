@@ -9,9 +9,9 @@ public interface ArticleColumnService {
     /**
      * 获取专栏界面下的文章列表
      */
-    List<ArticleItemVO> listArticleByColumnId(long columnId, int pagination, String sortBy);
+    List<ArticleItemVO> listArticleByColumnId(long columnId, int pagination);
 
-    List<ArticleItemVO> listArticleByColumnId(long columnId, int pagination, String sortBy, int pageSize);
+    List<ArticleItemVO> listArticleByColumnId(long columnId, int pagination, int pageSize);
 
     /**
      * 获取专栏界面下的文章数量

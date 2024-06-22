@@ -54,7 +54,7 @@
         WHERE ac.column_id = #{columnId}
         AND a.status = 1
         AND a.deprecated = 0
-        ORDER BY a.weight, #{sortBy} DESC
+        ORDER BY a.weight DESC, a.created_date DESC
         LIMIT #{paginationIndex}, #{size}
     </select>
 
@@ -69,7 +69,7 @@
         ON co.id = ac.column_id
         WHERE a.status = 1
         AND a.deprecated = 0
-        ORDER BY a.weight, #{sortBy} DESC
+        ORDER BY a.weight DESC, a.created_date DESC
         LIMIT #{paginationIndex}, #{size}
     </select>
 
