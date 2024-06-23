@@ -22,6 +22,8 @@ public interface RedisConstant {
 
     String BLOG_FRIENDS_KEY = "blog:friends";
 
+    String BLOG_AUTHOR_KEY = "blog:author";
+
     /**
      * 参数变量
      */

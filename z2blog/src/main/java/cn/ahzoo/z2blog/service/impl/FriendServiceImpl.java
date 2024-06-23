@@ -21,6 +21,7 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend>
         implements FriendService {
 
     @Cacheable(RedisConstant.BLOG_FRIENDS_KEY)
+    @Override
     public List<FriendVO> listFriends() {
         return baseMapper.listFriends();
     }

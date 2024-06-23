@@ -119,9 +119,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         }
     }
 
+    @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
     @Transactional(rollbackFor = Exception.class)
     @Override
-    @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
     public Result<?> removeArticleById(Long id) {
         Article article = getById(id);
         article.deprecatedArticle();
