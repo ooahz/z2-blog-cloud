@@ -171,16 +171,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     }
 
     private void buildArticleContent(ArticleVO articleVO) {
-        if (!MODULE_ELASTICSEARCH) {
-            buildArticleContentByDB(articleVO);
-        } else {
-            ArticleESRecord articleES = esFeignClientInterface.searchByArticleId(articleVO.getId());
-            if (ObjectUtils.isEmpty(articleES)) {
-                buildArticleContentByDB(articleVO);
-            } else {
-                buildArticleContentByES(articleVO, articleES);
-            }
-        }
+        buildArticleContentByDB(articleVO);
     }
 
     private void buildArticleContentByES(ArticleVO articleVO, ArticleESRecord articleES) {
