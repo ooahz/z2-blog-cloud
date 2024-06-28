@@ -85,6 +85,8 @@
         LEFT JOIN b_article_column ac
         ON a.id = ac.article_id
         WHERE ac.column_id = #{columnId}
+          AND a.status = 1
+          AND a.deprecated = 0
     </select>
 
     <select id="getArticleByPath" resultType="cn.ahzoo.z2blog.model.vo.ArticleVO">
