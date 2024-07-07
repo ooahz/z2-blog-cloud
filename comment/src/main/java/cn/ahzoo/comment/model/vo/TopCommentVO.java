@@ -6,6 +6,6 @@ import lombok.Data;
 public class TopCommentVO {
     private String userName;
     private String replyName;
-    private String userWebsite;
+    private String website;
     private String content;
 }
