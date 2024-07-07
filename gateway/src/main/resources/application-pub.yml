@@ -18,6 +18,22 @@ spring:
         password: { nacos密码 }
         ephemeral: false
     gateway:
+      globalcors:
+        # 解决浏览器向服务器发options请求被拦截问题，这样网关就不拦截这个请求了
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
+          # 拦截所有请求
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "GET"
+              - "POST"
+              - "DELETE"
+              - "PUT"
+              - "OPTIONS"
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
         - id: blog
           uri: lb://ahzoo-z2blog
