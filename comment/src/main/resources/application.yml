@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ahzoo-comment
+
+server:
+  servlet:
+    context-path: /comment
