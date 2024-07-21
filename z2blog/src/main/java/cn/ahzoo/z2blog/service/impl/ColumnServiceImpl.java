@@ -28,8 +28,8 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
     @Override
     public ResultList<List<ColumnItemVO>> listColumnByCategoryId(long categoryId, int pagination) {
         int paginationIndex = pagination - 1;
-        List<ColumnItemVO> columnItemVOList = baseMapper
-                .listColumnItemByCategoryId(categoryId, paginationIndex, Constant.PAGE_SIZE);
+        List<ColumnItemVO> columnItemVOList = baseMapper.listColumnItemByCategoryId(categoryId,
+                paginationIndex * Constant.PAGE_SIZE, Constant.PAGE_SIZE);
         int count = baseMapper.countByCategoryId(categoryId);
         return ResultList.success(
                 ResultPage.defaultPage(count, pagination),

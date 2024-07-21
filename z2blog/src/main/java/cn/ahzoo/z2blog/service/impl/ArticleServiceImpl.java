@@ -30,7 +30,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     public ResultList<List<ArticleItemVO>> listArticle(int pagination) {
         int paginationIndex = pagination - 1;
         List<ArticleItemVO> articleItemVOList = baseMapper
-                .listArticleItem(paginationIndex, Constant.PAGE_SIZE);
+                .listArticleItem(paginationIndex * Constant.PAGE_SIZE, Constant.PAGE_SIZE);
         long countArticle = baseMapper.countArticle();
         return ResultList.success(
                 new ResultPage(countArticle, articleItemVOList.size(), Constant.PAGE_SIZE, pagination),

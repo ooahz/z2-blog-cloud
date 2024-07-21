@@ -23,7 +23,8 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
     @Override
     public List<ArticleItemVO> listArticleByColumnId(long id, int pagination, int pageSize) {
         int paginationIndex = pagination - 1;
-        return articleMapper.listArticleByColumnId(id, paginationIndex, pageSize);
+        return articleMapper.listArticleByColumnId(id,
+                paginationIndex * Constant.PAGE_SIZE, pageSize);
     }
 
     @Override

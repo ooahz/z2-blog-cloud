@@ -57,7 +57,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     @Override
     public ResultList<List<ArticleItemVO>> listArticle(int pagination, String status, String type, String columnId) {
         int paginationIndex = pagination - 1;
-        List<ArticleItemVO> articleItemVOS = baseMapper.listArticleItem(paginationIndex, Constant.PAGE_SIZE, status, type, columnId);
+        List<ArticleItemVO> articleItemVOS = baseMapper.listArticleItem(
+                paginationIndex * Constant.PAGE_SIZE,
+                Constant.PAGE_SIZE, status, type, columnId);
         long countArticle = baseMapper.countArticle();
         return ResultList.success(new ResultPage(countArticle, articleItemVOS.size(), Constant.PAGE_SIZE, pagination),
                 articleItemVOS);

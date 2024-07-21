@@ -33,7 +33,9 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
     @Override
     public ResultList<List<ColumnVO>> listColumn(int pagination, String categoryId) {
         int paginationIndex = pagination - 1;
-        List<ColumnVO> columnVOList = baseMapper.listColumnItem(paginationIndex, Constant.PAGE_SIZE, categoryId);
+        List<ColumnVO> columnVOList = baseMapper.listColumnItem(
+                paginationIndex * Constant.PAGE_SIZE,
+                Constant.PAGE_SIZE, categoryId);
         return ResultList.success(new ResultPage(count(), columnVOList.size(), Constant.PAGE_SIZE, pagination),
                 columnVOList);
     }
