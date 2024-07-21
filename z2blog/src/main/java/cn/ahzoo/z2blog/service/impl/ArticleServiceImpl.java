@@ -49,7 +49,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     public ResultList<List<ArticleItemVO>> listArticleByColumnId(long columnId, int pagination) {
         List<ArticleItemVO> articleItemList = articleColumnService
                 .listArticleByColumnId(columnId, pagination);
-        return ResultList.success(ResultPage.emptyPage(), articleItemList);
+        Long count = articleColumnService.countArticleByColumnId(columnId);
+        return ResultList.success(
+                new ResultPage(count, articleItemList.size(), Constant.PAGE_SIZE, pagination),
+                articleItemList);
     }
 
     private void buildArticleContent(ArticleVO articleVO) {
