@@ -14,6 +14,8 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     List<ArticleItemVO> listArticleByColumnId(long columnId, int paginationIndex, int size);
 
+    List<ArticleVO> selectBatchByIds(List<Long> ids);
+
     Long countArticleByColumnId(long columnId);
 
     List<ArticleItemVO> listArticleItem(int paginationIndex, int size);

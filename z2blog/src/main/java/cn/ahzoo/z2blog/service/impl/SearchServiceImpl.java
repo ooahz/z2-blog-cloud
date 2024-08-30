@@ -42,9 +42,8 @@ public class SearchServiceImpl implements SearchService {
         if(ids.isEmpty()){
             return ResultList.success(ResultPage.emptyPage(), null);
         }
-        List<Article> articles = articleMapper.selectBatchIds(ids);
-        List<ArticleVO> articleVOS = ArticleMapping.INSTANCE.articleList2VOs(articles);
-        return ResultList.success(ResultPage.defaultPage(articleVOS.size(), pagination), articleVOS);
+        List<ArticleVO> articleVOList = articleMapper.selectBatchByIds(ids);
+        return ResultList.success(ResultPage.defaultPage(articleVOList.size(), pagination), articleVOList);
     }
 
 }
