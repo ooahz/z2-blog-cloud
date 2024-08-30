@@ -2,6 +2,7 @@ package cn.ahzoo.admin.aop;
 
 import cn.ahzoo.admin.annotation.SystemLogger;
 import cn.ahzoo.admin.model.dto.SysLogDTO;
+import cn.ahzoo.admin.model.entity.User;
 import cn.ahzoo.admin.model.vo.ArticleVO;
 import cn.ahzoo.admin.service.SysLogService;
 import cn.ahzoo.common.utils.IpUtil;
@@ -58,7 +59,7 @@ public class LogAspect {
             String param = buildParams(joinPoint, systemLogger);
             Long loginId = StpUtil.getLoginId(0L);
             String type = request.getMethod();
-            String requestUrl = request.getRequestURL().toString();
+            String requestUrl = request.getHeader("Origin");
             String ip = IpUtil.getIpAddress(request);
             String methodName = joinPoint.getSignature().getName();
             log = SysLogDTO.builder()
@@ -81,8 +82,11 @@ public class LogAspect {
         if (StringUtils.equals("false", systemLogger.param())) {
             return "";
         }
-        if (StringUtils.equals("article", systemLogger.value())) {
+        if (StringUtils.equals("article", systemLogger.param())) {
             return getArticleParams(joinPoint);
+        }
+        if (StringUtils.equals("user", systemLogger.param())) {
+            return getUserParams(joinPoint);
         }
         Object[] args = joinPoint.getArgs();
         String[] parameterNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
@@ -95,6 +99,27 @@ public class LogAspect {
             param = param.substring(0, 1000);
         }
         return param;
+    }
+
+    private String getUserParams(JoinPoint joinPoint) {
+        try {
+            Object[] args = joinPoint.getArgs();
+            String[] parameterNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
+            int index = Arrays.binarySearch(parameterNames, "user");
+            if (index < 0) {
+                return "";
+            }
+            User user = (User) args[index];
+            Map<String, String> paramsMap = Map.of(
+                    "email", String.valueOf(user.getEmail()),
+                    "name", String.valueOf(user.getName())
+            );
+            return JSON.toJSONString(paramsMap);
+        } catch (Exception e) {
+            String methodName = joinPoint.getSignature().getName();
+            logger.error("组装用户参数失败，方法名：{}，错误：{}", methodName, e.getMessage());
+            return "";
+        }
     }
 
     /**

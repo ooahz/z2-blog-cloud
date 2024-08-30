@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @description 登录功能
  * @author 十玖八柒（Ahzoo）
+ * @description 登录功能
  * @github https://github.com/ooahz
  * @date 2024/5
  */
@@ -30,14 +30,13 @@ public class LoginController {
 
     @Operation(summary = "登录")
     @PostMapping("/login")
-    @SystemLogger(value = "登录用户")
+    @SystemLogger(value = "登录用户", param = "user")
     public Result<UserInfoVO> login(@RequestBody User user) {
         return userService.login(user);
     }
 
     @Operation(summary = "登出")
     @PostMapping("/logout")
-    @SystemLogger(value = "登出用户")
     public Result<UserVO> logout(@RequestBody User user) {
         return userService.logout(user);
     }
