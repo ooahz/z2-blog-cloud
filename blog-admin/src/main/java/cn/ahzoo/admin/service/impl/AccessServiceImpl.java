@@ -14,7 +14,7 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
 
     @Override
     public WebsiteAccessDTO getWebsiteAccess() {
-        Access access = baseMapper.getWebsiteAccess();
+        Access access = baseMapper.selectWebsiteAccess();
         return AccessMapping.INSTANCE.access2WebsiteDTO(access);
     }
 }

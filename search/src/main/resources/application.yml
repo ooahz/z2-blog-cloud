@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: pub
   application:
     name: ahzoo-search
 

@@ -29,7 +29,7 @@ public class ArticleController {
 
     @Operation(summary = "获取首页文章列表")
     @GetMapping("/list")
-    public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p") @Min(value = 1, message = "页码不能小于1") int pagination) {
+    public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p", defaultValue = "1") @Min(value = 1, message = "页码不能小于1") int pagination) {
         return articleService.listArticle(pagination);
     }
 

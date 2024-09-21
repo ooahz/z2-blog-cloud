@@ -30,7 +30,7 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
         int paginationIndex = pagination - 1;
         List<ColumnItemVO> columnItemVOList = baseMapper.listColumnItemByCategoryId(categoryId,
                 paginationIndex * Constant.PAGE_SIZE, Constant.PAGE_SIZE);
-        int count = baseMapper.countByCategoryId(categoryId);
+        Long count = baseMapper.countByCategoryId(categoryId);
         return ResultList.success(
                 ResultPage.defaultPage(count, pagination),
                 columnItemVOList);
@@ -49,7 +49,7 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
 
     @Override
     public Result<ColumnInfoVO> getColumnInfoByName(String name) {
-        ColumnInfoVO columnInfo = baseMapper.getColumnInfoByName(name);
+        ColumnInfoVO columnInfo = baseMapper.selectColumnInfoByName(name);
         Long count = articleColumnService.countArticleByColumnId(columnInfo.getId());
         columnInfo.setTotal(count);
         return Result.success(columnInfo);

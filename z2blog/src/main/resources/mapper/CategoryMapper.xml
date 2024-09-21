@@ -21,19 +21,4 @@
     <sql id="Base_Column_List">
         id,name
     </sql>
-
-    <select id="listCategoryColumnByArticleId" resultMap="CategoryColumnMap">
-        SELECT ca.id,
-               ca.name,
-               col.id column_id,
-               col.name column_name
-        FROM b_category ca
-                 LEFT JOIN b_category_column cc
-                           ON ca.id = cc.category_id
-                 LEFT JOIN b_column col
-                           ON col.id = cc.column_id
-                 LEFT JOIN b_article_column ac
-                           ON col.id = ac.column_id
-        WHERE ac.article_id = #{articleId}
-    </select>
 </mapper>

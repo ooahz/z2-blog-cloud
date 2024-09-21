@@ -75,7 +75,7 @@
         LIMIT #{paginationIndex}, #{size}
     </select>
 
-    <select id="getArticleById" resultType="cn.ahzoo.admin.model.vo.ArticleVO">
+    <select id="selectArticleById" resultType="cn.ahzoo.admin.model.vo.ArticleVO">
         SELECT
         <include refid="Base_Column_List"/>
         FROM b_article
@@ -83,7 +83,7 @@
         AND id = #{articleId}
     </select>
 
-    <select id="getArticleContentById" resultType="cn.ahzoo.admin.model.dto.ArticleContentDTO">
+    <select id="selectArticleContentById" resultType="cn.ahzoo.admin.model.dto.ArticleContentDTO">
         SELECT article_id, content_md AS content
         FROM b_article_content
         WHERE article_id = #{articleId}
@@ -95,7 +95,7 @@
         WHERE column_id = #{columnId}
     </select>
 
-    <select id="getArticleStatistics" resultType="cn.ahzoo.admin.model.vo.ArticleStatisticsVO">
+    <select id="selectArticleStatistics" resultType="cn.ahzoo.admin.model.vo.ArticleStatisticsVO">
         SELECT
         SUM(IF(status = 1, 1, 0)) AS publish,
         COUNT(1) AS total

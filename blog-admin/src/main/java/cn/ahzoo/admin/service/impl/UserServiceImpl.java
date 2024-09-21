@@ -47,8 +47,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         Digester digester = new Digester(DigestAlgorithm.SHA256);
         String salt = HexUtil.encodeHexStr(RandomUtil.randomBytes(11));
         String digestPassword = digester.digestHex(uservo.getPassword() + salt);
-        user.setSalt(salt);
-        user.setPassword(digestPassword);
+        user.resetPassword(salt, digestPassword);
         updateById(user);
     }
 
@@ -73,7 +72,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new BizException(ResultCode.EXECUTION_ERROR.getCode(), "账号或密码有误");
         }
     }
-
 }
 
 

@@ -9,5 +9,4 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AuthorMapper extends BaseMapper<Author> {
 
     Author selectAuthorLimitOne();
-
 }

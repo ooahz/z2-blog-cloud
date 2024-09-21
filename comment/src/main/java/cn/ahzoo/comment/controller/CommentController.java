@@ -40,5 +40,4 @@ public class CommentController {
     public ResultList<?> getTopComment() {
         return commentService.selectTop();
     }
-
 }

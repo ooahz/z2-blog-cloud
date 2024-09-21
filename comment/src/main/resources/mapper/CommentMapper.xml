@@ -62,7 +62,7 @@
         FROM b_comment c1
         WHERE status = 1
         ORDER BY created_date DESC
-        limit 0, 3
+        limit 0, 4
     </select>
 
     <select id="selectByArticleId" resultMap="CommentList">
@@ -75,7 +75,7 @@
         AND c1.parent_id = 0
         AND c1.status = 1
         ORDER BY c1.created_date DESC
-        limit #{pageNum}, 10
+        LIMIT #{paginationIndex}, #{size}
     </select>
 
 </mapper>

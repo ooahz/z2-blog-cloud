@@ -54,7 +54,7 @@
         LIMIT #{paginationIndex}, #{size}
     </select>
 
-    <select id="getColumnInfoByName" resultMap="ColumnInfoVOMap">
+    <select id="selectColumnInfoByName" resultMap="ColumnInfoVOMap">
         SELECT c.id,
                c.name,
                c.description,
@@ -70,7 +70,7 @@
         WHERE c.name = #{name}
     </select>
 
-    <select id="countByCategoryId" resultType="java.lang.Integer">
+    <select id="countByCategoryId" resultType="java.lang.Long">
         SELECT COUNT(1)
         FROM b_column co
                  LEFT JOIN b_category_column cc

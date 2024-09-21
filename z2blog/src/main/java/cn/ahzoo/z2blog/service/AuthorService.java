@@ -7,5 +7,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface AuthorService extends IService<Author> {
 
     AuthorVO getDetail();
-
 }

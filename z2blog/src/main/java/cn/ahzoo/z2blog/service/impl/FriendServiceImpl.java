@@ -34,13 +34,13 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend>
             if (ObjectUtils.isNotEmpty(dbFriend)) {
                 return Result.failed(ResultCode.CONFLICT_FIELD.getCode(), "友链更新信息已提交，请等待更新完成！");
             }
-            friend.beUpdate();
+            friend.setUpdateStatus();
         } else {
             Friend dbFriend = baseMapper.selectByWebsite(friendVO.getWebsite());
             if (ObjectUtils.isNotEmpty(dbFriend)) {
                 return Result.failed(ResultCode.CONFLICT_FIELD.getCode(), "友链已存在，如需更新，请在上方选择更新！");
             }
-            friend.beReviewed();
+            friend.setReviewedStatus();
         }
         save(friend);
         return Result.success();

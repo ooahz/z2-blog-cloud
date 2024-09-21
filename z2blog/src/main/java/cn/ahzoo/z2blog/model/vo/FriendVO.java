@@ -24,6 +24,5 @@ public class FriendVO implements Serializable {
 
     private String description;
     private String avatar;
-    private Integer weight;
     private Integer type;
 }

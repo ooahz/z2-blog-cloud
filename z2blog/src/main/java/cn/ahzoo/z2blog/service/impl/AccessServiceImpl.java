@@ -1,7 +1,7 @@
 package cn.ahzoo.z2blog.service.impl;
 
 import cn.ahzoo.common.constant.RedisConstant;
-import cn.ahzoo.utils.utils.DataUtil;
+import cn.ahzoo.utils.utils.DateUtil;
 import cn.ahzoo.z2blog.constant.Constant;
 import cn.ahzoo.z2blog.exception.BizException;
 import cn.ahzoo.z2blog.mapper.AccessMapper;
@@ -37,7 +37,7 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
     @Override
     public void cacheWebsitePVAndUV(String ipAddress) {
         try {
-            int day = DataUtil.getToday();
+            int day = DateUtil.getDayOfToday();
             String key = RedisConstant.ACCESS_PREFIX + day + RedisConstant.KEY_SEPARATOR + "website";
             redisUtil.incrBy(key + "_pv", 1);
             redisUtil.sAdd(key + "_ip", ipAddress);
@@ -52,7 +52,7 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
     public void cacheArticlePVAndUV(Long articleId) {
         try {
             String ipAddress = IpUtil.getIpAddress(request);
-            int day = DataUtil.getToday();
+            int day = DateUtil.getDayOfToday();
             String key = RedisConstant.ACCESS_PREFIX + day + RedisConstant.KEY_SEPARATOR + "article";
             redisUtil.hIncrBy(key + "_pv", String.valueOf(articleId), 1);
             Long count = redisUtil.sAdd(key + "_ip_" + articleId, ipAddress);
@@ -72,7 +72,7 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
     @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
     @Override
     public void updateWebSiteAccess() {
-        int yesterday = DataUtil.getYesterday();
+        int yesterday = DateUtil.getDayOfYesterday();
         logger.info("开始更新全站访问量，日期：{}", yesterday);
         saveWebsiteAccess(yesterday);
     }
@@ -80,7 +80,7 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateArticleAccess() {
-        int yesterday = DataUtil.getYesterday();
+        int yesterday = DateUtil.getDayOfYesterday();
         logger.info("开始更新文章访问量，日期：{}", yesterday);
         saveArticleAccess(yesterday);
     }

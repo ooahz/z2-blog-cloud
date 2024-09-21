@@ -8,7 +8,7 @@ import cn.ahzoo.admin.model.entity.SysLog;
 import cn.ahzoo.admin.service.SysLogService;
 import cn.ahzoo.admin.utils.RedisUtil;
 import cn.ahzoo.common.constant.RedisConstant;
-import cn.ahzoo.utils.utils.DataUtil;
+import cn.ahzoo.utils.utils.DateUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -36,7 +36,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog>
 
     @Override
     public void saveCache(SysLogDTO log) {
-        int day = DataUtil.getToday();
+        int day = DateUtil.getDayOfToday();
         String key = RedisConstant.SYSTEM_LOG_PREFIX + day;
         redisUtil.lLeftPush(key, JSON.toJSONString(log));
         setKeyExpire(key);
@@ -45,7 +45,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog>
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveLog() {
-        int yesterday = DataUtil.getYesterday();
+        int yesterday = DateUtil.getDayOfYesterday();
         logger.info("开始同步日志，日期：{}", yesterday);
         Long count = redisUtil.lLen(RedisConstant.SYSTEM_LOG_PREFIX + yesterday);
         if (count <= 0) {

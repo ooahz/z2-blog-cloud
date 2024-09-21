@@ -11,9 +11,4 @@ import java.util.List;
 public interface CategoryService extends IService<Category> {
 
     ResultList<List<CategoryVO>> listCategory();
-
-    /**
-     * 获取文章所属分类及专栏
-     */
-    ResultList<List<CategoryColumnVO>> listCategoryColumnByArticleId(long articleId);
 }

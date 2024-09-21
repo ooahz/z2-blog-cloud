@@ -30,11 +30,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
 
     private final HttpServletRequest request;
     private static final String DEFAULT_USER_AVATAR = "data:image/webp;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAdElEQVR4Xu2RMQ6AMAwD+38x8kMk3sGAiExTN5aABfmUyY1zQ9v+Ma0P3uYHgmXdYvABc2VY14KySz85n5hP37+woBbk1XmBkS+cY0GQLwwErIA5wnYsCNiOJHiCBSU3AXvAXIF1LQhYVxJgruxgbsFwB/MD/P2sKIDHT2EAAAAASUVORK5CYII=";
+    private static final int PAGE_SIZE = 20;
 
     @Override
-    public ResultList<List<CommentVO>> selectByArticleId(String articleId, int page) {
-        int pageNum = (page - 1) * 10;
-        List<CommentVO> commentList = baseMapper.selectByArticleId(articleId, pageNum);
+    public ResultList<List<CommentVO>> selectByArticleId(String articleId, int pagination) {
+        int paginationIndex = pagination - 1;
+        List<CommentVO> commentList = baseMapper.selectByArticleId(articleId,
+                paginationIndex * PAGE_SIZE, PAGE_SIZE);
         return ResultList.success(ResultPage.emptyPage(), commentList);
     }
 
@@ -84,7 +86,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         comment.setUserAvatar(DEFAULT_USER_AVATAR);
         comment.setWebsite(originWebsite);
     }
-
 }
 
 

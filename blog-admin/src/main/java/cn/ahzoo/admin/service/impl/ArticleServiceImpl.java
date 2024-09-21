@@ -19,6 +19,7 @@ import cn.ahzoo.common.constant.RedisConstant;
 import cn.ahzoo.utils.model.Result;
 import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
+import cn.ahzoo.utils.utils.GenerateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -40,15 +41,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     @Autowired
     private ArticleColumnService articleColumnService;
 
-    @Value("${config.baseNum}")
-    private long BASE_NUM;
+    @Value("${config.seed}")
+    private long seed;
 
-    @Value("${module.elasticsearch}")
-    private boolean MODULE_ELASTICSEARCH;
+    @Value("${config.elasticsearch}")
+    private boolean enableElasticsearch;
 
     @Override
     public Result<ArticleVO> getArticleDetail(Long id) {
-        ArticleVO articleVO = baseMapper.getArticleById(id);
+        ArticleVO articleVO = baseMapper.selectArticleById(id);
         buildArticleContent(articleVO);
         buildArticleColumn(articleVO);
         return Result.success(articleVO);
@@ -91,7 +92,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         String formatHtml = ArticleUtil.formatHtml(articleVO.getHtmlContent());
         articleVO.setHtmlContent(formatHtml);
         baseMapper.saveArticleContent(articleVO);
-        if (MODULE_ELASTICSEARCH) {
+        if (enableElasticsearch) {
             ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.articleVO2ArticleESRecord(articleVO);
             esFeignClientInterface.save(articleESRecord);
         }
@@ -115,7 +116,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         String formatHtml = ArticleUtil.formatHtml(articleVO.getHtmlContent());
         articleVO.setHtmlContent(formatHtml);
         baseMapper.updateArticleContent(articleVO);
-        if (MODULE_ELASTICSEARCH) {
+        if (enableElasticsearch) {
             ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.articleVO2ArticleESRecord(articleVO);
             esFeignClientInterface.save(articleESRecord);
         }
@@ -157,9 +158,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         if (StringUtils.isNotEmpty(articleVO.getPath())) {
             return;
         }
-        long timeLong = Long.parseLong(String.valueOf(System.currentTimeMillis()).substring(2, 10));
-        timeLong ^= BASE_NUM;
-        articleVO.setPath(String.valueOf(timeLong));
+        String hexNameGenerate = GenerateUtil.hexNameGenerate(seed);
+        articleVO.setPath(hexNameGenerate);
     }
 
     private void setDefaultParams(ArticleVO articleVO) {
@@ -176,12 +176,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         buildArticleContentByDB(articleVO);
     }
 
-    private void buildArticleContentByES(ArticleVO articleVO, ArticleESRecord articleES) {
-        articleVO.setContent(articleES.content());
-    }
-
     private void buildArticleContentByDB(ArticleVO articleVO) {
-        ArticleContentDTO articleContentById = baseMapper.getArticleContentById(articleVO.getId());
+        ArticleContentDTO articleContentById = baseMapper.selectArticleContentById(articleVO.getId());
         articleVO.setContent(articleContentById.getContent());
     }
 

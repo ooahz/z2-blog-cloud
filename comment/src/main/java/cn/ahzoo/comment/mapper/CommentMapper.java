@@ -11,10 +11,9 @@ import java.util.List;
 @Mapper
 public interface CommentMapper extends BaseMapper<Comment> {
 
-    List<CommentVO> selectByArticleId(String articleId, int pageNum);
+    List<CommentVO> selectByArticleId(String articleId, int paginationIndex, int size);
 
     List<TopCommentVO> selectTop();
-
 }
 
 

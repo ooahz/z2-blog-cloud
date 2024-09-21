@@ -73,7 +73,7 @@
         LIMIT #{paginationIndex}, #{size}
     </select>
 
-    <select id="getArticleContentById" resultType="cn.ahzoo.z2blog.model.dto.ArticleContentDTO">
+    <select id="selectArticleContentById" resultType="cn.ahzoo.z2blog.model.dto.ArticleContentDTO">
         SELECT article_id, content_html AS content
         FROM b_article_content
         WHERE article_id = #{articleId}

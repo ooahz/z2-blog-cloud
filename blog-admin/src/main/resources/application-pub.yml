@@ -62,7 +62,5 @@ sa-token:
   is-log: true
 
 config:
-  baseNum: 10987
-
-module:
-  elasticsearch: true
+  seed: 10987
+  elasticsearch: false

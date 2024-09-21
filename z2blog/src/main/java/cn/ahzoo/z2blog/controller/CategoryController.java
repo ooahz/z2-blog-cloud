@@ -33,10 +33,4 @@ public class CategoryController {
     public ResultList<List<CategoryVO>> list() {
         return categoryService.listCategory();
     }
-
-    @Operation(summary = "获取专栏页分类列表")
-    @GetMapping("/column/{articleId}")
-    public ResultList<List<CategoryColumnVO>> listCategoryColumnByArticleId(@PathVariable long articleId) {
-        return categoryService.listCategoryColumnByArticleId(articleId);
-    }
 }

@@ -10,7 +10,7 @@ import cn.ahzoo.admin.service.AccessService;
 import cn.ahzoo.admin.service.StatisticsService;
 import cn.ahzoo.admin.utils.RedisUtil;
 import cn.ahzoo.common.constant.RedisConstant;
-import cn.ahzoo.utils.utils.DataUtil;
+import cn.ahzoo.utils.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         logger.info("= =+从数据库获取统计数据");
         WebsiteAccessDTO websiteAccess = accessService.getWebsiteAccess();
         ViewStatisticsVO websiteViewStatisticsVO = new ViewStatisticsVO(websiteAccess.getPv(), websiteAccess.getUv());
-        ArticleStatisticsVO articleStatistics = articleMapper.getArticleStatistics();
+        ArticleStatisticsVO articleStatistics = articleMapper.selectArticleStatistics();
         Long count = columnMapper.selectCount(null);
         return StatisticsVO.builder()
                 .yesterdayViews(websiteViewStatisticsVO)
@@ -53,7 +53,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         int pv = 0;
         int uv = 0;
         try {
-            int day = DataUtil.getToday();
+            int day = DateUtil.getDayOfToday();
             String webKey = RedisConstant.ACCESS_PREFIX + day + RedisConstant.KEY_SEPARATOR + "website";
             String pvStr = redisUtil.get(webKey + "_pv");
             if (StringUtils.isNotEmpty(pvStr)) {

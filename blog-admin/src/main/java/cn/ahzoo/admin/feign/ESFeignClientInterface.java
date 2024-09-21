@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "ahzoo-search", path = "v1/es")
+@FeignClient(name = "ahzoo-search", path = "search/v1/es")
 public interface ESFeignClientInterface {
 
     @GetMapping("/")

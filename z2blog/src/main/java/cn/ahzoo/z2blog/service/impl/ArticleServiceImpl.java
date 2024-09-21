@@ -60,7 +60,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     }
 
     private void buildArticleContentByDB(ArticleVO articleVO) {
-        ArticleContentDTO articleContentById = baseMapper.getArticleContentById(articleVO.getId());
+        ArticleContentDTO articleContentById = baseMapper.selectArticleContentById(articleVO.getId());
         articleVO.setContent(articleContentById.getContent());
     }
 }

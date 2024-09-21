@@ -10,5 +10,4 @@ public interface AuthorService extends IService<Author> {
     Result<AuthorVO> getDetail();
 
     Result<?> updateAuthor(AuthorVO authorVO);
-
 }

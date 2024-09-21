@@ -46,4 +46,9 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    public void resetPassword(String salt, String password) {
+        this.salt = salt;
+        this.password = password;
+    }
 }

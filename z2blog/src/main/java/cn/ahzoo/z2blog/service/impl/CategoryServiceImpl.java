@@ -23,13 +23,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         List<CategoryVO> categoryVOList = CategoryMapping.INSTANCE.categoryList2VOs(list);
         return ResultList.success(ResultPage.emptyPage(), categoryVOList);
     }
-
-    @Override
-    public ResultList<List<CategoryColumnVO>> listCategoryColumnByArticleId(long articleId) {
-        List<CategoryColumnVO> categoryColumnVOList = baseMapper.listCategoryColumnByArticleId(articleId);
-        return ResultList.success(ResultPage.emptyPage(), categoryColumnVOList);
-    }
-
 }
 
 

@@ -15,5 +15,4 @@ public interface CommentService extends IService<Comment> {
     Result<?> saveComment(Comment comment);
 
     ResultList<?> selectTop();
-
 }

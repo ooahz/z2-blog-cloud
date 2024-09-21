@@ -24,9 +24,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     List<ArticleItemVO> listArticleItem(int paginationIndex, int size, String status, String type, String columnId);
 
-    ArticleVO getArticleById(Long articleId);
+    ArticleVO selectArticleById(Long articleId);
 
-    ArticleContentDTO getArticleContentById(Long articleId);
+    ArticleContentDTO selectArticleContentById(Long articleId);
 
     void insertArticleColumn(ArticleColumnIdDTO articleColumnIdDTO);
 
@@ -34,9 +34,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     void removeArticleColumnByArticleId(Long articleId);
 
-    ArticleStatisticsVO getArticleStatistics();
+    ArticleStatisticsVO selectArticleStatistics();
 
-    long countArticle();
+    Long countArticle();
 }
 
 

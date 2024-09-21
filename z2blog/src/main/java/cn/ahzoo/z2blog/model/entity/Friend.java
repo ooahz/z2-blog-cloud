@@ -67,11 +67,11 @@ public class Friend implements Serializable {
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
-    public void beReviewed() {
+    public void setReviewedStatus() {
         this.status = 2;
     }
 
-    public void beUpdate() {
+    public void setUpdateStatus() {
         this.status = 3;
     }
 }

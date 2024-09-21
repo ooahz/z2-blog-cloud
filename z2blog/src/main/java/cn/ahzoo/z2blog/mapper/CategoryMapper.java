@@ -9,8 +9,6 @@ import java.util.List;
 
 @Mapper
 public interface CategoryMapper extends BaseMapper<Category> {
-
-    List<CategoryColumnVO> listCategoryColumnByArticleId(long articleId);
 }
 
 

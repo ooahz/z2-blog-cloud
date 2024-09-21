@@ -16,9 +16,9 @@ public interface ColumnMapper extends BaseMapper<Column> {
 
     List<ColumnItemVO> listColumnItemByArticleId(long articleId);
 
-    ColumnInfoVO getColumnInfoByName(String name);
+    ColumnInfoVO selectColumnInfoByName(String name);
 
-    int countByCategoryId(long categoryId);
+    Long countByCategoryId(long categoryId);
 }
 
 

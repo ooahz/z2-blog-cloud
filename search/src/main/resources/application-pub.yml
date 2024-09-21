@@ -8,7 +8,7 @@ spring:
 
   elasticsearch:
 #    uris: localhost:9200
-    uris: { es地址 }:{es端口}
+    uris: { es地址 }:{ es端口 }
 
   cloud:
     openfeign:

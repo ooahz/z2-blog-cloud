@@ -45,5 +45,4 @@ public class SearchServiceImpl implements SearchService {
         List<ArticleVO> articleVOList = articleMapper.selectBatchByIds(ids);
         return ResultList.success(ResultPage.defaultPage(articleVOList.size(), pagination), articleVOList);
     }
-
 }

@@ -20,7 +20,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     List<ArticleItemVO> listArticleItem(int paginationIndex, int size);
 
-    ArticleContentDTO getArticleContentById(long articleId);
+    ArticleContentDTO selectArticleContentById(long articleId);
 
     ArticleVO getArticleByPath(String path);
 

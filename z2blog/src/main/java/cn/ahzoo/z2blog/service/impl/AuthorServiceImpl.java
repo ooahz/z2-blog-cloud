@@ -21,7 +21,6 @@ public class AuthorServiceImpl extends ServiceImpl<AuthorMapper, Author>
         Author author = baseMapper.selectAuthorLimitOne();
         return AuthorMapping.INSTANCE.author2AuthorVO(author);
     }
-
 }
 
 

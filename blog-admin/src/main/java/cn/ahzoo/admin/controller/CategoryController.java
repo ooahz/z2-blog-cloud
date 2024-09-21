@@ -50,9 +50,9 @@ public class CategoryController {
 
     @Operation(summary = "删除分类")
     @SaCheckRole("admin")
-    @DeleteMapping("/{articleId}")
+    @DeleteMapping("/{categoryId}")
     @SystemLogger(value = "删除分类")
-    public Result<CategoryVO> delete(@PathVariable Long articleId) {
-        return categoryService.deleteCategory(articleId);
+    public Result<CategoryVO> delete(@PathVariable Long categoryId) {
+        return categoryService.deleteCategory(categoryId);
     }
 }

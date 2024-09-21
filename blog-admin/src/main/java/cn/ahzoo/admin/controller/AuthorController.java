@@ -37,5 +37,4 @@ public class AuthorController {
     public Result<?> update(@RequestBody AuthorVO authorVO) {
         return authorService.updateAuthor(authorVO);
     }
-
 }
