@@ -29,7 +29,7 @@ public class ColumnController {
     private final ColumnService columnService;
 
     @Operation(summary = "获取专栏列表分页")
-    @GetMapping("/list")
+    @GetMapping("")
     public ResultList<List<ColumnVO>> list(@RequestParam(value = "p") int pagination,
                                            @RequestParam(required = false) String categoryId) {
         return columnService.listColumn(pagination, categoryId);

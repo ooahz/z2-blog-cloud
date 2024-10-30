@@ -24,7 +24,7 @@
             <!--日志文件输出的文件名 -->
             <FileNamePattern>${LOG_HOME}/blog-info.%d{yyyy-MM-dd}.%i.log</FileNamePattern>
             <!--日志文件保留天数 -->
-            <MaxHistory>2</MaxHistory>
+            <MaxHistory>7</MaxHistory>
             <!--日志文件最大的大小-->
             <MaxFileSize>10MB</MaxFileSize>
         </rollingPolicy>
@@ -50,7 +50,7 @@
                 <maxFileSize>10MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--日志文档保留天数-->
-            <maxHistory>2</maxHistory>
+            <maxHistory>7</maxHistory>
         </rollingPolicy>
         <!-- 此日志文档只记录ERROR级别的 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">

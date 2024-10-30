@@ -28,7 +28,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @Operation(summary = "获取分类列表")
-    @GetMapping("/list")
+    @GetMapping("")
     public ResultList<List<CategoryVO>> list() {
         return categoryService.listCategory();
     }

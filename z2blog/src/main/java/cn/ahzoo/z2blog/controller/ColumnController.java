@@ -28,7 +28,7 @@ public class ColumnController {
     private final ColumnService columnService;
 
     @Operation(summary = "获取专栏列表")
-    @GetMapping("/list/{categoryId}")
+    @GetMapping("/{categoryId}")
     public ResultList<List<ColumnItemVO>> list(@PathVariable long categoryId,
                                                @RequestParam(value = "p") @Min(value = 1, message = "页码不能小于1") int pagination) {
         return columnService.listColumnByCategoryId(categoryId, pagination);
@@ -41,7 +41,7 @@ public class ColumnController {
     }
 
     @Operation(summary = "获取文章页专栏列表")
-    @GetMapping("/article/list/{articleId}")
+    @GetMapping("/articles/{articleId}")
     public ResultList<List<ColumnItemVO>> listColumn(@PathVariable long articleId) {
         return columnService.listColumnByArticleId(articleId);
     }

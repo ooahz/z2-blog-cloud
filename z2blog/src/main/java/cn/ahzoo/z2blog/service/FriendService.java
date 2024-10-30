@@ -12,5 +12,5 @@ public interface FriendService extends IService<Friend> {
 
     List<FriendVO> listFriends();
 
-    Result<?> saveFriend(FriendVO friendVO, String isUpdated);
+    Result<?> saveFriend(FriendVO friendVO, boolean isUpdated);
 }

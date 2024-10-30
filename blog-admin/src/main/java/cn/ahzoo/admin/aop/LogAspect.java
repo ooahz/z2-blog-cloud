@@ -79,6 +79,7 @@ public class LogAspect {
     }
 
     private String buildParams(JoinPoint joinPoint, SystemLogger systemLogger) {
+        // todo switch替代
         if (StringUtils.equals("false", systemLogger.param())) {
             return "";
         }

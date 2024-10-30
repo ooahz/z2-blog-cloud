@@ -37,7 +37,8 @@ public class FriendController {
     @Operation(summary = "保存友链")
     @PostMapping("")
     public Result<?> save(@Validated @RequestBody FriendVO friendVO,
-                          @RequestParam("u") String updatedStr) {
-        return friendService.saveFriend(friendVO, updatedStr);
+                          @RequestParam(value = "u", defaultValue = "0", required = false)
+                          boolean isUpdated) {
+        return friendService.saveFriend(friendVO, isUpdated);
     }
 }

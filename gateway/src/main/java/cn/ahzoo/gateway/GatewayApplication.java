@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @github https://github.com/ooahz
  * @date 2024/3
  */
-
 @SpringBootApplication
 public class GatewayApplication {
 

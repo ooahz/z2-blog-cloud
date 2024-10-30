@@ -27,9 +27,9 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend>
     }
 
     @Override
-    public Result<?> saveFriend(FriendVO friendVO, String isUpdated) {
+    public Result<?> saveFriend(FriendVO friendVO, boolean isUpdated) {
         Friend friend = FriendMapping.INSTANCE.friendVO2Friend(friendVO);
-        if (StringUtils.equals(isUpdated, "true")) {
+        if (isUpdated) {
             Friend dbFriend = baseMapper.selectUpdateByWebsite(friendVO.getOldWebsite());
             if (ObjectUtils.isNotEmpty(dbFriend)) {
                 return Result.failed(ResultCode.CONFLICT_FIELD.getCode(), "友链更新信息已提交，请等待更新完成！");

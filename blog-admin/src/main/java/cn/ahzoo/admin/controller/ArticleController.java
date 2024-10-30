@@ -36,7 +36,7 @@ public class ArticleController {
     }
 
     @Operation(summary = "获取文章列表")
-    @GetMapping("/list")
+    @GetMapping("")
     public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p") int pagination,
                                                 @RequestParam(required = false) String status,
                                                 @RequestParam(required = false) String type,

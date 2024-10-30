@@ -29,7 +29,7 @@ public class FriendController {
     private final FriendService friendService;
 
     @Operation(summary = "获取友链列表")
-    @GetMapping("list")
+    @GetMapping("")
     public ResultList<List<FriendVO>> list() {
         return friendService.listFriends();
     }

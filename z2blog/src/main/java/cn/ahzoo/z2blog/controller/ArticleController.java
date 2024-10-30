@@ -28,19 +28,19 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @Operation(summary = "获取首页文章列表")
-    @GetMapping("/list")
+    @GetMapping("")
     public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p", defaultValue = "1") @Min(value = 1, message = "页码不能小于1") int pagination) {
         return articleService.listArticle(pagination);
     }
 
     @Operation(summary = "获取文章详情")
-    @GetMapping("/detail/{articlePath}")
+    @GetMapping("/{articlePath}")
     public Result<ArticleVO> detail(@PathVariable String articlePath) {
         return articleService.getArticleDetail(articlePath);
     }
 
     @Operation(summary = "获取专栏页文章列表")
-    @GetMapping("/column/list/{columnId}")
+    @GetMapping("/columns/{columnId}")
     public ResultList<List<ArticleItemVO>> listArticle(@PathVariable long columnId,
                                                        @RequestParam(value = "p") @Min(value = 1, message = "页码不能小于1") int pagination) {
         return articleService.listArticleByColumnId(columnId, pagination);
