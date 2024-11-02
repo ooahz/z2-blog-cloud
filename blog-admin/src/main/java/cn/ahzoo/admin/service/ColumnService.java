@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.service;
 
+import cn.ahzoo.admin.model.dto.ColumnDTO;
 import cn.ahzoo.admin.model.entity.Column;
 import cn.ahzoo.admin.model.vo.BriefColumnVO;
 import cn.ahzoo.admin.model.vo.ColumnVO;
@@ -21,9 +22,9 @@ public interface ColumnService extends IService<Column> {
      */
     ResultList<List<BriefColumnVO>> listAllColumn();
 
-    Result<ColumnVO> saveColumn(ColumnVO columnVO);
+    Result<ColumnVO> saveColumn(ColumnDTO columnDTO);
 
-    Result<ColumnVO> updateColumn(ColumnVO columnVO);
+    Result<ColumnVO> updateColumn(ColumnDTO columnDTO);
 
     Result<ColumnVO> deleteColumn(Long columnId);
 }

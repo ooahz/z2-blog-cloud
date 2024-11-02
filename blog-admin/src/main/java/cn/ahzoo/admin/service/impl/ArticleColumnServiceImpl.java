@@ -3,8 +3,8 @@ package cn.ahzoo.admin.service.impl;
 import cn.ahzoo.admin.mapper.ArticleMapper;
 import cn.ahzoo.admin.mapper.ColumnMapper;
 import cn.ahzoo.admin.model.dto.ArticleColumnIdDTO;
-import cn.ahzoo.admin.model.dto.ColumnDTO;
-import cn.ahzoo.admin.model.vo.ArticleVO;
+import cn.ahzoo.admin.model.dto.ArticleDTO;
+import cn.ahzoo.admin.model.dto.BriefColumnDTO;
 import cn.ahzoo.admin.service.ArticleColumnService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -22,7 +22,7 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
     private final ArticleMapper articleMapper;
 
     @Override
-    public List<ColumnDTO> listColumnByArticleId(Long articleId) {
+    public List<BriefColumnDTO> listColumnByArticleId(Long articleId) {
         return columnMapper.listByArticleId(articleId);
     }
 
@@ -33,13 +33,13 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveArticleColumn(ArticleVO articleVO) {
-        List<Long> columnIds = articleVO.getColumnIds();
+    public void saveArticleColumn(ArticleDTO articleDTO) {
+        List<Long> columnIds = articleDTO.getColumnIds();
         if (ObjectUtils.isEmpty(columnIds) || columnIds.size() == 0) {
             return;
         }
         ArticleColumnIdDTO saveArticleColumnIdDTO = ArticleColumnIdDTO.builder()
-                .articleId(articleVO.getId())
+                .articleId(articleDTO.getId())
                 .columnIds(columnIds)
                 .build();
         articleMapper.insertArticleColumn(saveArticleColumnIdDTO);
@@ -47,9 +47,9 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateArticleColumn(ArticleVO articleVO) {
-        List<Long> columnIds = articleVO.getColumnIds();
-        List<Long> oldColumnIds = columnMapper.listColumnIdsByArticleId(articleVO.getId());
+    public void updateArticleColumn(ArticleDTO articleDTO) {
+        List<Long> columnIds = articleDTO.getColumnIds();
+        List<Long> oldColumnIds = columnMapper.listColumnIdsByArticleId(articleDTO.getId());
         ArrayList<Long> existIds = new ArrayList<>();
         ArrayList<Long> removeIds = new ArrayList<>();
         oldColumnIds.forEach(oldColumnId -> {
@@ -62,7 +62,7 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
         columnIds.removeAll(existIds);
         if (!columnIds.isEmpty()) {
             ArticleColumnIdDTO saveArticleColumnIdDTO = ArticleColumnIdDTO.builder()
-                    .articleId(articleVO.getId())
+                    .articleId(articleDTO.getId())
                     .columnIds(columnIds)
                     .build();
             articleMapper.insertArticleColumn(saveArticleColumnIdDTO);
@@ -71,7 +71,7 @@ public class ArticleColumnServiceImpl implements ArticleColumnService {
             return;
         }
         ArticleColumnIdDTO removeArticleColumnIdDTO = ArticleColumnIdDTO.builder()
-                .articleId(articleVO.getId())
+                .articleId(articleDTO.getId())
                 .columnIds(removeIds)
                 .build();
         articleMapper.removeArticleColumn(removeArticleColumnIdDTO);

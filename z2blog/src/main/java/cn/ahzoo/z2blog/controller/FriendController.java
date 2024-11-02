@@ -3,6 +3,7 @@ package cn.ahzoo.z2blog.controller;
 import cn.ahzoo.utils.model.Result;
 import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
+import cn.ahzoo.z2blog.model.dto.FriendDTO;
 import cn.ahzoo.z2blog.model.vo.FriendVO;
 import cn.ahzoo.z2blog.service.FriendService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,9 +37,9 @@ public class FriendController {
 
     @Operation(summary = "保存友链")
     @PostMapping("")
-    public Result<?> save(@Validated @RequestBody FriendVO friendVO,
+    public Result<?> save(@Validated @RequestBody FriendDTO friendDTO,
                           @RequestParam(value = "u", defaultValue = "0", required = false)
                           boolean isUpdated) {
-        return friendService.saveFriend(friendVO, isUpdated);
+        return friendService.saveFriend(friendDTO, isUpdated);
     }
 }

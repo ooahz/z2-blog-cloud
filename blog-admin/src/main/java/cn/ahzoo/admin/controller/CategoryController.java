@@ -1,6 +1,7 @@
 package cn.ahzoo.admin.controller;
 
 import cn.ahzoo.admin.annotation.SystemLogger;
+import cn.ahzoo.admin.model.dto.CategoryDTO;
 import cn.ahzoo.admin.model.vo.CategoryVO;
 import cn.ahzoo.admin.service.CategoryService;
 import cn.ahzoo.utils.model.Result;
@@ -36,16 +37,16 @@ public class CategoryController {
     @Operation(summary = "保存分类")
     @SaCheckRole("admin")
     @PostMapping("")
-    public Result<CategoryVO> save(@RequestBody CategoryVO categoryVO) {
-        return categoryService.saveCategory(categoryVO);
+    public Result<CategoryVO> save(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.saveCategory(categoryDTO);
     }
 
     @Operation(summary = "更新分类")
     @SaCheckRole("admin")
     @PutMapping("")
     @SystemLogger(value = "更新分类")
-    public Result<CategoryVO> update(@RequestBody CategoryVO categoryVO) {
-        return categoryService.updateCategory(categoryVO);
+    public Result<CategoryVO> update(@RequestBody CategoryDTO categoryDTO) {
+        return categoryService.updateCategory(categoryDTO);
     }
 
     @Operation(summary = "删除分类")

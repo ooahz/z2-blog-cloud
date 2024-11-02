@@ -1,6 +1,6 @@
 package cn.ahzoo.admin.service;
 
-import cn.ahzoo.admin.model.vo.ColumnVO;
+import cn.ahzoo.admin.model.dto.ColumnDTO;
 
 public interface CategoryColumnService {
 
@@ -12,10 +12,10 @@ public interface CategoryColumnService {
     /**
      * 保存分类下的专栏
      */
-    void saveCategoryColumn(ColumnVO columnVO);
+    void saveCategoryColumn(ColumnDTO columnDTO);
 
     /**
      * 更新分类下的专栏
      */
-    void updateCategoryColumn(ColumnVO columnVO);
+    void updateCategoryColumn(ColumnDTO columnDTO);
 }

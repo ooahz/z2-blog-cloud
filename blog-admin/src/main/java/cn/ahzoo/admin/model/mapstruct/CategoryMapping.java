@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.model.mapstruct;
 
+import cn.ahzoo.admin.model.dto.CategoryDTO;
 import cn.ahzoo.admin.model.entity.Category;
 import cn.ahzoo.admin.model.vo.CategoryVO;
 import org.mapstruct.Mapper;
@@ -18,7 +19,8 @@ public interface CategoryMapping {
     CategoryMapping INSTANCE = Mappers.getMapper(CategoryMapping.class);
 
     CategoryVO category2VO(Category category);
-    Category categoryVO2Category(CategoryVO categoryVO);
 
-    List<CategoryVO> categoryList2VOs(List<Category> categoryList);
+    Category dto2Category(CategoryDTO categoryDTO);
+
+    List<CategoryVO> list2VOs(List<Category> categoryList);
 }

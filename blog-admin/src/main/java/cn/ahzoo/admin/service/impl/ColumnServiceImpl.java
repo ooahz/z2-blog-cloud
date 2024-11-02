@@ -1,6 +1,7 @@
 package cn.ahzoo.admin.service.impl;
 
 import cn.ahzoo.admin.constant.Constant;
+import cn.ahzoo.admin.model.dto.ColumnDTO;
 import cn.ahzoo.admin.model.entity.Column;
 import cn.ahzoo.admin.enums.ResultCode;
 import cn.ahzoo.admin.mapper.ColumnMapper;
@@ -49,21 +50,21 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
     @Override
-    public Result<ColumnVO> saveColumn(ColumnVO columnVO) {
-        Column column = ColumnMapping.INSTANCE.vo2Column(columnVO);
+    public Result<ColumnVO> saveColumn(ColumnDTO columnDTO) {
+        Column column = ColumnMapping.INSTANCE.dto2Column(columnDTO);
         save(column);
-        columnVO.setId(column.getId());
-        saveCategoryColumn(columnVO);
+        columnDTO.setId(column.getId());
+        saveCategoryColumn(columnDTO);
         return Result.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result<ColumnVO> updateColumn(ColumnVO columnVO) {
-        Column column = ColumnMapping.INSTANCE.vo2Column(columnVO);
+    public Result<ColumnVO> updateColumn(ColumnDTO columnDTO) {
+        Column column = ColumnMapping.INSTANCE.dto2Column(columnDTO);
         updateById(column);
-        columnVO.setId(column.getId());
-        updateCategoryColumn(columnVO);
+        columnDTO.setId(column.getId());
+        updateCategoryColumn(columnDTO);
         return Result.success();
     }
 
@@ -79,15 +80,11 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
         return Result.success();
     }
 
-    private void saveCategoryColumn(ColumnVO columnVO) {
-        categoryColumnService.saveCategoryColumn(columnVO);
+    private void saveCategoryColumn(ColumnDTO columnDTO) {
+        categoryColumnService.saveCategoryColumn(columnDTO);
     }
 
-    private void updateCategoryColumn(ColumnVO columnVO) {
-        categoryColumnService.updateCategoryColumn(columnVO);
+    private void updateCategoryColumn(ColumnDTO columnDTO) {
+        categoryColumnService.updateCategoryColumn(columnDTO);
     }
 }
-
-
-
-

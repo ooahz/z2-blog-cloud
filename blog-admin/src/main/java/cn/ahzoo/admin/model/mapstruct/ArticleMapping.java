@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.model.mapstruct;
 
+import cn.ahzoo.admin.model.dto.ArticleDTO;
 import cn.ahzoo.admin.model.entity.Article;
 import cn.ahzoo.admin.model.record.ArticleESRecord;
 import cn.ahzoo.admin.model.vo.ArticleVO;
@@ -21,8 +22,10 @@ public interface ArticleMapping {
 
     Article vo2Article(ArticleVO articleVO);
 
-    @Mapping(target = "articleId", source = "id")
-    ArticleESRecord articleVO2ArticleESRecord(ArticleVO articleVO);
+    Article dto2Article(ArticleDTO articleDTO);
 
-    List<ArticleVO> articleList2VOs(List<Article> articleList);
+    @Mapping(target = "articleId", source = "id")
+    ArticleESRecord dto2ArticleESRecord(ArticleDTO articleDTO);
+
+    List<ArticleVO> list2VOs(List<Article> articleList);
 }

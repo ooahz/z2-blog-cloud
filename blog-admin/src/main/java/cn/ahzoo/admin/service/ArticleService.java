@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.service;
 
+import cn.ahzoo.admin.model.dto.ArticleDTO;
 import cn.ahzoo.admin.model.entity.Article;
 import cn.ahzoo.admin.model.vo.ArticleItemVO;
 import cn.ahzoo.admin.model.vo.ArticleVO;
@@ -15,14 +16,14 @@ public interface ArticleService extends IService<Article> {
 
     ResultList<List<ArticleItemVO>> listArticle(int pagination, String status, String type, String columnId);
 
-    Result<?> saveArticle(ArticleVO articleVO);
+    Result<?> saveArticle(ArticleDTO articleDTO);
 
-    Result<?> updateArticle(ArticleVO articleVO);
+    Result<?> updateArticle(ArticleDTO articleDTO);
 
     Result<?> removeArticleById(Long id);
 
     /**
      * 更新文章的部分字段
      */
-    Result<?> updateArticlePart(ArticleVO articleVO);
+    Result<?> updateArticlePart(ArticleDTO articleDTO);
 }

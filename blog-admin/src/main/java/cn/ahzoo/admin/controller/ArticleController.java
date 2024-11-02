@@ -1,6 +1,7 @@
 package cn.ahzoo.admin.controller;
 
 import cn.ahzoo.admin.annotation.SystemLogger;
+import cn.ahzoo.admin.model.dto.ArticleDTO;
 import cn.ahzoo.admin.model.vo.ArticleItemVO;
 import cn.ahzoo.admin.model.vo.ArticleVO;
 import cn.ahzoo.admin.service.ArticleService;
@@ -48,24 +49,24 @@ public class ArticleController {
     @SaCheckRole("admin")
     @PostMapping("")
     @SystemLogger(value = "新增文章", param = "article")
-    public Result<?> save(@Validated @RequestBody ArticleVO articleVO) {
-        return articleService.saveArticle(articleVO);
+    public Result<?> save(@Validated @RequestBody ArticleDTO articleDTO) {
+        return articleService.saveArticle(articleDTO);
     }
 
     @Operation(summary = "更新文章")
     @SaCheckRole("admin")
     @PutMapping("")
     @SystemLogger(value = "更新文章", param = "article")
-    public Result<?> update(@Validated @RequestBody ArticleVO articleVO) {
-        return articleService.updateArticle(articleVO);
+    public Result<?> update(@Validated @RequestBody ArticleDTO articleDTO) {
+        return articleService.updateArticle(articleDTO);
     }
 
     @Operation(summary = "更新文章部分参数")
     @SaCheckRole("admin")
     @PostMapping("/part")
     @SystemLogger(value = "更新文章", param = "false")
-    public Result<?> updatePart(@RequestBody ArticleVO articleVO) {
-        return articleService.updateArticlePart(articleVO);
+    public Result<?> updatePart(@RequestBody ArticleDTO articleDTO) {
+        return articleService.updateArticlePart(articleDTO);
     }
 
     @Operation(summary = "删除文章")

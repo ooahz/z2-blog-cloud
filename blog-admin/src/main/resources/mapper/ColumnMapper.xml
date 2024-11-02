@@ -33,7 +33,7 @@
         c.thumbnail
     </sql>
 
-    <select id="listByArticleId" resultType="cn.ahzoo.admin.model.dto.ColumnDTO">
+    <select id="listByArticleId" resultType="cn.ahzoo.admin.model.dto.BriefColumnDTO">
         SELECT
         <include refid="Base_Column_List"/>
         FROM b_column c

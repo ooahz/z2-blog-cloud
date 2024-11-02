@@ -6,7 +6,8 @@ import cn.ahzoo.admin.exception.BizException;
 import cn.ahzoo.admin.feign.ESFeignClientInterface;
 import cn.ahzoo.admin.mapper.ArticleMapper;
 import cn.ahzoo.admin.model.dto.ArticleContentDTO;
-import cn.ahzoo.admin.model.dto.ColumnDTO;
+import cn.ahzoo.admin.model.dto.ArticleDTO;
+import cn.ahzoo.admin.model.dto.BriefColumnDTO;
 import cn.ahzoo.admin.model.entity.Article;
 import cn.ahzoo.admin.model.mapstruct.ArticleMapping;
 import cn.ahzoo.admin.model.record.ArticleESRecord;
@@ -69,49 +70,49 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
     @Override
-    public Result<?> saveArticle(ArticleVO articleVO) {
-        generatePath(articleVO);
-        duplicateValidate(articleVO);
-        setDefaultParams(articleVO);
-        Article article = ArticleMapping.INSTANCE.vo2Article(articleVO);
+    public Result<?> saveArticle(ArticleDTO articleDTO) {
+        generatePath(articleDTO);
+        duplicateValidate(articleDTO);
+        setDefaultParams(articleDTO);
+        Article article = ArticleMapping.INSTANCE.dto2Article(articleDTO);
         save(article);
-        articleVO.setId(article.getId());
-        saveArticleContent(articleVO);
-        articleColumnService.saveArticleColumn(articleVO);
+        articleDTO.setId(article.getId());
+        saveArticleContent(articleDTO);
+        articleColumnService.saveArticleColumn(articleDTO);
         return Result.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveArticleContent(ArticleVO articleVO) {
-        String formatHtml = ArticleUtil.formatHtml(articleVO.getHtmlContent());
-        articleVO.setHtmlContent(formatHtml);
-        baseMapper.saveArticleContent(articleVO);
+    public void saveArticleContent(ArticleDTO articleDTO) {
+        String formatHtml = ArticleUtil.formatHtml(articleDTO.getHtmlContent());
+        articleDTO.setHtmlContent(formatHtml);
+        baseMapper.saveArticleContent(articleDTO);
         if (enableElasticsearch) {
-            ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.articleVO2ArticleESRecord(articleVO);
+            ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.dto2ArticleESRecord(articleDTO);
             esFeignClientInterface.save(articleESRecord);
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result<?> updateArticle(ArticleVO articleVO) {
-        updateParamsValidate(articleVO);
-        duplicateValidate(articleVO);
-        Article article = ArticleMapping.INSTANCE.vo2Article(articleVO);
+    public Result<?> updateArticle(ArticleDTO articleDTO) {
+        updateParamsValidate(articleDTO);
+        duplicateValidate(articleDTO);
+        Article article = ArticleMapping.INSTANCE.dto2Article(articleDTO);
         updateById(article);
-        articleVO.setId(article.getId());
-        updateArticleContent(articleVO);
-        articleColumnService.updateArticleColumn(articleVO);
+        articleDTO.setId(article.getId());
+        updateArticleContent(articleDTO);
+        articleColumnService.updateArticleColumn(articleDTO);
         return Result.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void updateArticleContent(ArticleVO articleVO) {
-        String formatHtml = ArticleUtil.formatHtml(articleVO.getHtmlContent());
-        articleVO.setHtmlContent(formatHtml);
-        baseMapper.updateArticleContent(articleVO);
+    public void updateArticleContent(ArticleDTO articleDTO) {
+        String formatHtml = ArticleUtil.formatHtml(articleDTO.getHtmlContent());
+        articleDTO.setHtmlContent(formatHtml);
+        baseMapper.updateArticleContent(articleDTO);
         if (enableElasticsearch) {
-            ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.articleVO2ArticleESRecord(articleVO);
+            ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.dto2ArticleESRecord(articleDTO);
             esFeignClientInterface.save(articleESRecord);
         }
     }
@@ -128,41 +129,41 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     }
 
     @Override
-    public Result<?> updateArticlePart(ArticleVO articleVO) {
-        Article beforeArticle = getById(articleVO.getId());
-        beforeArticle.setStatus(articleVO.getStatus());
+    public Result<?> updateArticlePart(ArticleDTO articleDTO) {
+        Article beforeArticle = getById(articleDTO.getId());
+        beforeArticle.setStatus(articleDTO.getStatus());
         updateById(beforeArticle);
         return Result.success();
     }
 
-    private void updateParamsValidate(ArticleVO articleVO) {
-        if (ObjectUtils.isEmpty(articleVO.getId())) {
+    private void updateParamsValidate(ArticleDTO articleDTO) {
+        if (ObjectUtils.isEmpty(articleDTO.getId())) {
             throw new BizException(ResultCode.INVALID_PARAM.getCode(), "文章ID为空");
         }
     }
 
-    private void duplicateValidate(ArticleVO articleVO) {
-        Long count = baseMapper.validateDuplicateCount(articleVO.getTitle(), articleVO.getPath(), articleVO.getId());
+    private void duplicateValidate(ArticleDTO articleDTO) {
+        Long count = baseMapper.validateDuplicateCount(articleDTO.getTitle(), articleDTO.getPath(), articleDTO.getId());
         if (count > 0) {
             throw new BizException(ResultCode.INVALID_PARAM.getCode(), "文章标题或者文章路径已存在");
         }
     }
 
-    private void generatePath(ArticleVO articleVO) {
-        if (StringUtils.isNotEmpty(articleVO.getPath())) {
+    private void generatePath(ArticleDTO articleDTO) {
+        if (StringUtils.isNotEmpty(articleDTO.getPath())) {
             return;
         }
         String hexNameGenerate = GenerateUtil.hexNameGenerate(seed);
-        articleVO.setPath(hexNameGenerate);
+        articleDTO.setPath(hexNameGenerate);
     }
 
-    private void setDefaultParams(ArticleVO articleVO) {
-        articleVO.setStatus(Constant.DEFAULT_STATUS);
-        if (ObjectUtils.isEmpty(articleVO.getWeight())) {
-            articleVO.setWeight(Constant.DEFAULT_INT_PARAM);
+    private void setDefaultParams(ArticleDTO articleDTO) {
+        articleDTO.setStatus(Constant.DEFAULT_STATUS);
+        if (ObjectUtils.isEmpty(articleDTO.getWeight())) {
+            articleDTO.setWeight(Constant.DEFAULT_INT_PARAM);
         }
-        if (StringUtils.isEmpty(articleVO.getPath())) {
-            articleVO.setPath(articleVO.getTitle());
+        if (StringUtils.isEmpty(articleDTO.getPath())) {
+            articleDTO.setPath(articleDTO.getTitle());
         }
     }
 
@@ -176,12 +177,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     }
 
     private void buildArticleColumn(ArticleVO articleVO) {
-        List<ColumnDTO> columnDTOList = articleColumnService.listColumnByArticleId(articleVO.getId());
-        List<Long> columnIds = columnDTOList.stream().map(ColumnDTO::getId).toList();
+        List<BriefColumnDTO> columnDTOList = articleColumnService.listColumnByArticleId(articleVO.getId());
+        List<Long> columnIds = columnDTOList.stream().map(BriefColumnDTO::getId).toList();
         articleVO.setColumnIds(columnIds);
     }
 }
-
-
-
-

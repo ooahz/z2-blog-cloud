@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.model.mapstruct;
 
+import cn.ahzoo.admin.model.dto.FriendDTO;
 import cn.ahzoo.admin.model.entity.Friend;
 import cn.ahzoo.admin.model.vo.FriendVO;
 import org.mapstruct.Mapper;
@@ -15,10 +16,9 @@ import java.util.List;
  */
 @Mapper
 public interface FriendMapping {
-
     FriendMapping INSTANCE = Mappers.getMapper(FriendMapping.class);
 
-    List<FriendVO> friendList2VOs(List<Friend> friendList);
+    List<FriendVO> list2VOs(List<Friend> friendList);
 
-    Friend friendVO2Friend(FriendVO friendVO);
+    Friend dto2Friend(FriendDTO friendDTO);
 }

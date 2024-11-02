@@ -1,13 +1,13 @@
 package cn.ahzoo.admin.service;
 
-import cn.ahzoo.admin.model.dto.ColumnDTO;
-import cn.ahzoo.admin.model.vo.ArticleVO;
+import cn.ahzoo.admin.model.dto.ArticleDTO;
+import cn.ahzoo.admin.model.dto.BriefColumnDTO;
 
 import java.util.List;
 
 public interface ArticleColumnService {
 
-    List<ColumnDTO> listColumnByArticleId(Long articleId);
+    List<BriefColumnDTO> listColumnByArticleId(Long articleId);
 
     /**
      * 统计专栏下的文章数量
@@ -17,9 +17,9 @@ public interface ArticleColumnService {
     /**
      * 保存与文章关联的专栏
      */
-    void saveArticleColumn(ArticleVO articleVO);
+    void saveArticleColumn(ArticleDTO articleDTO);
 
-    void updateArticleColumn(ArticleVO articleVO);
+    void updateArticleColumn(ArticleDTO articleDTO);
 
     /**
      * 删除与文章id关联的专栏

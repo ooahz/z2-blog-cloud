@@ -15,10 +15,7 @@ import java.util.List;
  */
 @Mapper
 public interface CategoryMapping {
-
     CategoryMapping INSTANCE = Mappers.getMapper(CategoryMapping.class);
 
-    CategoryVO category2VO(Category category);
-
-    List<CategoryVO> categoryList2VOs(List<Category> categoryList);
+    List<CategoryVO> list2VOs(List<Category> categoryList);
 }

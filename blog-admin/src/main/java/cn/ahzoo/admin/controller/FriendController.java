@@ -1,6 +1,7 @@
 package cn.ahzoo.admin.controller;
 
 import cn.ahzoo.admin.annotation.SystemLogger;
+import cn.ahzoo.admin.model.dto.FriendDTO;
 import cn.ahzoo.admin.model.vo.FriendVO;
 import cn.ahzoo.admin.service.FriendService;
 import cn.ahzoo.utils.model.Result;
@@ -38,16 +39,16 @@ public class FriendController {
     @SaCheckRole("admin")
     @PostMapping("")
     @SystemLogger(value = "新增友链")
-    public Result<?> save(@Validated @RequestBody FriendVO friendVO) {
-        return friendService.saveFriend(friendVO);
+    public Result<?> save(@Validated @RequestBody FriendDTO friendDTO) {
+        return friendService.saveFriend(friendDTO);
     }
 
     @Operation(summary = "更新友链")
     @SaCheckRole("admin")
     @PutMapping("")
     @SystemLogger(value = "更新友链")
-    public Result<?> update(@Validated @RequestBody FriendVO friendVO) {
-        return friendService.updateFriend(friendVO);
+    public Result<?> update(@Validated @RequestBody FriendDTO friendDTO) {
+        return friendService.updateFriend(friendDTO);
     }
 
     @Operation(summary = "删除友链")

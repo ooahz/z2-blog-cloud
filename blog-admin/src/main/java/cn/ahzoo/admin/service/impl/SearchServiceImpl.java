@@ -27,7 +27,7 @@ public class SearchServiceImpl implements SearchService {
             return ResultList.success(ResultPage.defaultPage(0, pagination), List.of());
         }
         List<Article> articles = articleMapper.selectBatchIds(ids);
-        List<ArticleVO> articleVOS = ArticleMapping.INSTANCE.articleList2VOs(articles);
+        List<ArticleVO> articleVOS = ArticleMapping.INSTANCE.list2VOs(articles);
         return ResultList.success(ResultPage.defaultPage(articleVOS.size(), pagination), articleVOS);
     }
 }

@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.service.impl;
 
+import cn.ahzoo.admin.model.dto.CategoryDTO;
 import cn.ahzoo.admin.model.entity.Category;
 import cn.ahzoo.admin.enums.ResultCode;
 import cn.ahzoo.admin.mapper.CategoryMapper;
@@ -27,22 +28,22 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     @Override
     public ResultList<List<CategoryVO>> listCategory() {
         List<Category> list = list();
-        List<CategoryVO> categoryVOS = CategoryMapping.INSTANCE.categoryList2VOs(list);
+        List<CategoryVO> categoryVOS = CategoryMapping.INSTANCE.list2VOs(list);
         return ResultList.success(ResultPage.emptyPage(), categoryVOS);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result<CategoryVO> saveCategory(CategoryVO categoryVO) {
-        Category category = CategoryMapping.INSTANCE.categoryVO2Category(categoryVO);
+    public Result<CategoryVO> saveCategory(CategoryDTO categoryDTO) {
+        Category category = CategoryMapping.INSTANCE.dto2Category(categoryDTO);
         save(category);
         return Result.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Result<CategoryVO> updateCategory(CategoryVO categoryVO) {
-        Category category = CategoryMapping.INSTANCE.categoryVO2Category(categoryVO);
+    public Result<CategoryVO> updateCategory(CategoryDTO categoryDTO) {
+        Category category = CategoryMapping.INSTANCE.dto2Category(categoryDTO);
         updateById(category);
         return Result.success();
     }
@@ -58,7 +59,3 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
         return Result.success();
     }
 }
-
-
-
-

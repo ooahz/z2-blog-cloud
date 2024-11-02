@@ -14,4 +14,3 @@ public class ArticleItemVO {
     private Integer weight;
     private Integer status;
 }
-

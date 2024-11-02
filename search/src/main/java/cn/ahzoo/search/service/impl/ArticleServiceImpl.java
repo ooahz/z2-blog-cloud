@@ -4,8 +4,8 @@ import cn.ahzoo.search.constants.PageConstants;
 import cn.ahzoo.search.model.entity.Article;
 import cn.ahzoo.search.repository.ArticleRepository;
 import cn.ahzoo.search.service.ArticleService;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
-    @Autowired
-    private ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
 
     @Override
     public List<Long> searchByTitle(String title, int pagination) {

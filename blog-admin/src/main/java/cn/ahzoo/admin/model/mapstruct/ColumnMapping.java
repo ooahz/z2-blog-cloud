@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.model.mapstruct;
 
+import cn.ahzoo.admin.model.dto.ColumnDTO;
 import cn.ahzoo.admin.model.entity.Column;
 import cn.ahzoo.admin.model.vo.ColumnVO;
 import org.mapstruct.Mapper;
@@ -17,7 +18,5 @@ import java.util.List;
 public interface ColumnMapping {
     ColumnMapping INSTANCE = Mappers.getMapper(ColumnMapping.class);
 
-    ColumnVO column2VO(Column column);
-
-    Column vo2Column(ColumnVO columnVO);
+    Column dto2Column(ColumnDTO columnDTO);
 }

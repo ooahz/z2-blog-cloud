@@ -2,7 +2,7 @@ package cn.ahzoo.admin.mapper;
 
 import cn.ahzoo.admin.model.entity.Column;
 import cn.ahzoo.admin.model.dto.CategoryColumnIdDTO;
-import cn.ahzoo.admin.model.dto.ColumnDTO;
+import cn.ahzoo.admin.model.dto.BriefColumnDTO;
 import cn.ahzoo.admin.model.vo.BriefColumnVO;
 import cn.ahzoo.admin.model.vo.ColumnVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -13,7 +13,7 @@ import java.util.List;
 @Mapper
 public interface ColumnMapper extends BaseMapper<Column> {
 
-    List<ColumnDTO> listByArticleId(Long articleId);
+    List<BriefColumnDTO> listByArticleId(Long articleId);
 
     Long countColumnByCategoryId(Long categoryId);
 

@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.mapper;
 
+import cn.ahzoo.admin.model.dto.ArticleDTO;
 import cn.ahzoo.admin.model.entity.Article;
 import cn.ahzoo.admin.model.dto.ArticleColumnIdDTO;
 import cn.ahzoo.admin.model.dto.ArticleContentDTO;
@@ -18,9 +19,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     Long countArticleByColumnId(Long columnId);
 
-    void saveArticleContent(ArticleVO articleVO);
+    void saveArticleContent(ArticleDTO articleDTO);
 
-    void updateArticleContent(ArticleVO articleVO);
+    void updateArticleContent(ArticleDTO articleDTO);
 
     List<ArticleItemVO> listArticleItem(int paginationIndex, int size, String status, String type, String columnId);
 

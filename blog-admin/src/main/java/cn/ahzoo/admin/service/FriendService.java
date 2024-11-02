@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.service;
 
+import cn.ahzoo.admin.model.dto.FriendDTO;
 import cn.ahzoo.admin.model.entity.Friend;
 import cn.ahzoo.admin.model.vo.FriendVO;
 import cn.ahzoo.utils.model.Result;
@@ -12,9 +13,9 @@ public interface FriendService extends IService<Friend> {
 
     ResultList<List<FriendVO>> listFriends();
 
-    Result<?> saveFriend(FriendVO friendVO);
+    Result<?> saveFriend(FriendDTO friendDTO);
 
     Result<?> deleteFriend(Long id);
 
-    Result<?> updateFriend(FriendVO friendVO);
+    Result<?> updateFriend(FriendDTO friendDTO);
 }

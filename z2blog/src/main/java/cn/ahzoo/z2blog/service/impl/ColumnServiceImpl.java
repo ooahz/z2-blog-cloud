@@ -59,7 +59,3 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
         return articleColumnService.listArticleByColumnId(columnId, 1, 3);
     }
 }
-
-
-
-

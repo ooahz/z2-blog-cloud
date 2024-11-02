@@ -10,8 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @description 定时持久化访问量
  * @author 十玖八柒（Ahzoo）
+ * @description 定时持久化访问量
  * @github https://github.com/ooahz
  * @date 2024/5
  */
@@ -26,14 +26,18 @@ public class AccessQuartz {
     /**
      * 每天凌晨1点持久化访问量
      */
-    @Scheduled(cron = "0 0 1 * * ?")
+    @Scheduled(cron = "0 30 1 * * ?")
     @Async
     public void access() {
+        executeWithExceptionHandling(accessService::updateWebSiteAccess, "持久化网站访问量失败");
+        executeWithExceptionHandling(accessService::updateArticleAccess, "持久化文章访问量失败");
+    }
+
+    private void executeWithExceptionHandling(Runnable task, String errorMessage) {
         try {
-            accessService.updateWebSiteAccess();
-            accessService.updateArticleAccess();
+            task.run();
         } catch (Exception e) {
-            logger.error("持久化访问量失败: {}", e.getMessage());
+            logger.error("{}: {}", errorMessage, e.getMessage());
         }
     }
 }

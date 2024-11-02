@@ -2,17 +2,17 @@ package cn.ahzoo.search.controller;
 
 import cn.ahzoo.search.model.entity.Article;
 import cn.ahzoo.search.service.ArticleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("v1/es")
+@AllArgsConstructor
 public class ArticleController {
 
-    @Autowired
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
     @GetMapping("/")
     public List<Long> search(@RequestParam String keyword,

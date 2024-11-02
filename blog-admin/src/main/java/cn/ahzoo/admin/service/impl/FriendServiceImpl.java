@@ -3,6 +3,7 @@ package cn.ahzoo.admin.service.impl;
 import cn.ahzoo.admin.enums.ResultCode;
 import cn.ahzoo.admin.exception.BizException;
 import cn.ahzoo.admin.mapper.FriendMapper;
+import cn.ahzoo.admin.model.dto.FriendDTO;
 import cn.ahzoo.admin.model.entity.Friend;
 import cn.ahzoo.admin.model.mapstruct.FriendMapping;
 import cn.ahzoo.admin.model.vo.FriendVO;
@@ -25,14 +26,14 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend>
     @Override
     public ResultList<List<FriendVO>> listFriends() {
         List<Friend> friendList = list();
-        List<FriendVO> friendVOList = FriendMapping.INSTANCE.friendList2VOs(friendList);
+        List<FriendVO> friendVOList = FriendMapping.INSTANCE.list2VOs(friendList);
         return ResultList.success(ResultPage.emptyPage(), friendVOList);
     }
 
     @CacheEvict(value = RedisConstant.BLOG_FRIENDS_KEY, allEntries = true)
     @Override
-    public Result<?> saveFriend(FriendVO friendVO) {
-        Friend friend = FriendMapping.INSTANCE.friendVO2Friend(friendVO);
+    public Result<?> saveFriend(FriendDTO friendDTO) {
+        Friend friend = FriendMapping.INSTANCE.dto2Friend(friendDTO);
         save(friend);
         return Result.success();
     }
@@ -46,20 +47,16 @@ public class FriendServiceImpl extends ServiceImpl<FriendMapper, Friend>
 
     @CacheEvict(value = RedisConstant.BLOG_FRIENDS_KEY, allEntries = true)
     @Override
-    public Result<?> updateFriend(FriendVO friendVO) {
-        updateParamsValidate(friendVO);
-        Friend friend = FriendMapping.INSTANCE.friendVO2Friend(friendVO);
+    public Result<?> updateFriend(FriendDTO friendDTO) {
+        updateParamsValidate(friendDTO);
+        Friend friend = FriendMapping.INSTANCE.dto2Friend(friendDTO);
         updateById(friend);
         return Result.success();
     }
 
-    private void updateParamsValidate(FriendVO friendVO) {
-        if (ObjectUtils.isEmpty(friendVO.getId())) {
+    private void updateParamsValidate(FriendDTO friendDTO) {
+        if (ObjectUtils.isEmpty(friendDTO.getId())) {
             throw new BizException(ResultCode.INVALID_PARAM.getCode(), "友链ID为空");
         }
     }
 }
-
-
-
-

@@ -5,8 +5,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
+@Builder
 public class SysLogDTO {
     private Long userId;
     private String methodName;

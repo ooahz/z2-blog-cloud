@@ -20,11 +20,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category>
     @Override
     public ResultList<List<CategoryVO>> listCategory() {
         List<Category> list = list();
-        List<CategoryVO> categoryVOList = CategoryMapping.INSTANCE.categoryList2VOs(list);
+        List<CategoryVO> categoryVOList = CategoryMapping.INSTANCE.list2VOs(list);
         return ResultList.success(ResultPage.emptyPage(), categoryVOList);
     }
 }
-
-
-
-

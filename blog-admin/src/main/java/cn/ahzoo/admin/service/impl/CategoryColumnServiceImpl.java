@@ -3,6 +3,7 @@ package cn.ahzoo.admin.service.impl;
 import cn.ahzoo.admin.mapper.CategoryMapper;
 import cn.ahzoo.admin.mapper.ColumnMapper;
 import cn.ahzoo.admin.model.dto.CategoryColumnIdDTO;
+import cn.ahzoo.admin.model.dto.ColumnDTO;
 import cn.ahzoo.admin.model.vo.ColumnVO;
 import cn.ahzoo.admin.service.CategoryColumnService;
 import lombok.AllArgsConstructor;
@@ -26,10 +27,10 @@ public class CategoryColumnServiceImpl implements CategoryColumnService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveCategoryColumn(ColumnVO columnVO) {
-        List<Long> categoryIds = columnVO.getCategoryIds();
+    public void saveCategoryColumn(ColumnDTO columnDTO) {
+        List<Long> categoryIds = columnDTO.getCategoryIds();
         CategoryColumnIdDTO saveCategoryColumnIdDTO = CategoryColumnIdDTO.builder()
-                .columnId(columnVO.getId())
+                .columnId(columnDTO.getId())
                 .categoryIds(categoryIds)
                 .build();
         columnMapper.insertCategoryColumn(saveCategoryColumnIdDTO);
@@ -37,9 +38,9 @@ public class CategoryColumnServiceImpl implements CategoryColumnService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateCategoryColumn(ColumnVO columnVO) {
-        List<Long> categoryIds = columnVO.getCategoryIds();
-        List<Long> oldCategoryIds = categoryMapper.listCategoryIdsByColumnId(columnVO.getId());
+    public void updateCategoryColumn(ColumnDTO columnDTO) {
+        List<Long> categoryIds = columnDTO.getCategoryIds();
+        List<Long> oldCategoryIds = categoryMapper.listCategoryIdsByColumnId(columnDTO.getId());
         ArrayList<Long> existIds = new ArrayList<>();
         ArrayList<Long> removeIds = new ArrayList<>();
         oldCategoryIds.forEach(oldCategoryId -> {
@@ -52,7 +53,7 @@ public class CategoryColumnServiceImpl implements CategoryColumnService {
         categoryIds.removeAll(existIds);
         if (!categoryIds.isEmpty()) {
             CategoryColumnIdDTO saveCategoryColumnIdDTO = CategoryColumnIdDTO.builder()
-                    .columnId(columnVO.getId())
+                    .columnId(columnDTO.getId())
                     .categoryIds(categoryIds)
                     .build();
             columnMapper.insertCategoryColumn(saveCategoryColumnIdDTO);
@@ -61,7 +62,7 @@ public class CategoryColumnServiceImpl implements CategoryColumnService {
             return;
         }
         CategoryColumnIdDTO removeCategoryColumnIdDTO = CategoryColumnIdDTO.builder()
-                .columnId(columnVO.getId())
+                .columnId(columnDTO.getId())
                 .categoryIds(removeIds)
                 .build();
         columnMapper.removeCategoryColumn(removeCategoryColumnIdDTO);

@@ -1,6 +1,7 @@
 package cn.ahzoo.admin.controller;
 
 import cn.ahzoo.admin.annotation.SystemLogger;
+import cn.ahzoo.admin.model.dto.ColumnDTO;
 import cn.ahzoo.admin.model.vo.BriefColumnVO;
 import cn.ahzoo.admin.model.vo.ColumnVO;
 import cn.ahzoo.admin.service.ColumnService;
@@ -44,16 +45,16 @@ public class ColumnController {
     @Operation(summary = "保存专栏")
     @SaCheckRole("admin")
     @PostMapping("")
-    public Result<ColumnVO> save(@RequestBody ColumnVO ColumnVO) {
-        return columnService.saveColumn(ColumnVO);
+    public Result<ColumnVO> save(@RequestBody ColumnDTO columnDTO) {
+        return columnService.saveColumn(columnDTO);
     }
 
     @Operation(summary = "更新专栏")
     @SaCheckRole("admin")
     @PutMapping("")
     @SystemLogger(value = "更新专栏")
-    public Result<ColumnVO> update(@RequestBody ColumnVO ColumnVO) {
-        return columnService.updateColumn(ColumnVO);
+    public Result<ColumnVO> update(@RequestBody ColumnDTO columnDTO) {
+        return columnService.updateColumn(columnDTO);
     }
 
     @Operation(summary = "删除专栏")
