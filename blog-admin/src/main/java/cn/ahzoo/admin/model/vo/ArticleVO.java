@@ -32,5 +32,4 @@ public class ArticleVO {
     private Integer weight;
     private Integer type;
     private Integer status;
-    private Boolean isDraft = false;
 }

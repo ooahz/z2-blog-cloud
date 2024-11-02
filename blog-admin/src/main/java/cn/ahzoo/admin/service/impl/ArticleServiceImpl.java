@@ -70,16 +70,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
     @Override
     public Result<?> saveArticle(ArticleVO articleVO) {
-        Boolean isDraft = articleVO.getIsDraft();
-        if (!isDraft) {
-            generatePath(articleVO);
-        }
+        generatePath(articleVO);
         duplicateValidate(articleVO);
         setDefaultParams(articleVO);
         Article article = ArticleMapping.INSTANCE.vo2Article(articleVO);
-        if (isDraft) {
-            article.setStatus(Constant.ARTICLE_TYPE_DRAFT);
-        }
         save(article);
         articleVO.setId(article.getId());
         saveArticleContent(articleVO);
