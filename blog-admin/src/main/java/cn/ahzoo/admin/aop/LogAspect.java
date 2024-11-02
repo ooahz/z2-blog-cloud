@@ -1,13 +1,12 @@
 package cn.ahzoo.admin.aop;
 
 import cn.ahzoo.admin.annotation.SystemLogger;
-import cn.ahzoo.admin.model.dto.SysLogDTO;
+import cn.ahzoo.admin.model.entity.SysLog;
 import cn.ahzoo.admin.model.entity.User;
 import cn.ahzoo.admin.model.vo.ArticleVO;
 import cn.ahzoo.admin.service.SysLogService;
 import cn.ahzoo.common.utils.IpUtil;
 import cn.dev33.satoken.stp.StpUtil;
-import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSON;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +52,7 @@ public class LogAspect {
     }
 
     public void saveLog(JoinPoint joinPoint, SystemLogger systemLogger) {
-        SysLogDTO log = SysLogDTO.builder().build();
+        SysLog log = SysLog.builder().build();
         try {
             String param = buildParams(joinPoint, systemLogger);
             Long loginId = StpUtil.getLoginId(0L);
@@ -62,7 +60,7 @@ public class LogAspect {
             String requestUrl = request.getHeader("Origin");
             String ip = IpUtil.getIpAddress(request);
             String methodName = joinPoint.getSignature().getName();
-            log = SysLogDTO.builder()
+            log = SysLog.builder()
                     .content(systemLogger.value())
                     .methodName(methodName)
                     .param(param)
@@ -70,25 +68,24 @@ public class LogAspect {
                     .requestType(type)
                     .requestUrl(requestUrl)
                     .userId(loginId)
-                    .createdTime(LocalDateTime.now())
                     .build();
-            sysLogService.saveCache(log);
+            sysLogService.save(log);
         } catch (Exception e) {
             logger.error("日志记录出错：{},\n日志对象：{}", e.getMessage(), log.toString());
         }
     }
 
     private String buildParams(JoinPoint joinPoint, SystemLogger systemLogger) {
-        // todo switch替代
-        if (StringUtils.equals("false", systemLogger.param())) {
-            return "";
-        }
-        if (StringUtils.equals("article", systemLogger.param())) {
-            return getArticleParams(joinPoint);
-        }
-        if (StringUtils.equals("user", systemLogger.param())) {
-            return getUserParams(joinPoint);
-        }
+        String logParam = systemLogger.param();
+        return switch (logParam) {
+            case "false" -> "";
+            case "article" -> getArticleParams(joinPoint);
+            case "user" -> getUserParams(joinPoint);
+            default -> getDefaultParams(joinPoint);
+        };
+    }
+
+    private String getDefaultParams(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         String[] parameterNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
         Map<String, Object> paramMap = new HashMap<>();

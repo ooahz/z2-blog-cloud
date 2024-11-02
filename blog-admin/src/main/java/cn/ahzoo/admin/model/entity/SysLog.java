@@ -1,6 +1,7 @@
 package cn.ahzoo.admin.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.Date;
  */
 @TableName(value = "sys_log")
 @Data
+@Builder
 public class SysLog implements Serializable {
     /**
      *
@@ -56,6 +58,7 @@ public class SysLog implements Serializable {
     /**
      * 操作时间
      */
+    @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;
 
     /**
