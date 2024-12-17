@@ -35,6 +35,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class LogAspect {
+
     private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
     private final HttpServletRequest request;
     private final SysLogService sysLogService;
@@ -44,7 +45,6 @@ public class LogAspect {
     }
 
     @Around(value = "pointcut(systemLogger)", argNames = "joinPoint,systemLogger")
-    @Transactional(rollbackFor = Exception.class)
     public Object doAround(ProceedingJoinPoint joinPoint, SystemLogger systemLogger) throws Throwable {
         Object result = joinPoint.proceed();
         saveLog(joinPoint, systemLogger);

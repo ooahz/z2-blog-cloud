@@ -74,23 +74,10 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
     public void updateWebSiteAccess() {
         int yesterday = DateUtil.getDayOfYesterday();
         logger.info("开始更新全站访问量，日期：{}", yesterday);
-        saveWebsiteAccess(yesterday);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void updateArticleAccess() {
-        int yesterday = DateUtil.getDayOfYesterday();
-        logger.info("开始更新文章访问量，日期：{}", yesterday);
-        saveArticleAccess(yesterday);
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public void saveWebsiteAccess(int day) {
         int uv = 0;
         int pv = 0;
         try {
-            String webKey = RedisConstant.ACCESS_PREFIX + day + RedisConstant.KEY_SEPARATOR + "website";
+            String webKey = RedisConstant.ACCESS_PREFIX + yesterday + RedisConstant.KEY_SEPARATOR + "website";
             String pvStr = redisUtil.get(webKey + "_pv");
             if (StringUtils.isNotEmpty(pvStr)) {
                 pv = Integer.parseInt(pvStr);
@@ -110,12 +97,15 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveArticleAccess(int day) {
+    @Override
+    public void updateArticleAccess() {
+        int yesterday = DateUtil.getDayOfYesterday();
+        logger.info("开始更新文章访问量，日期：{}", yesterday);
         int uv = 0;
         int pv = 0;
         List<Access> accessResult = new ArrayList<>();
         try {
-            String articleKey = RedisConstant.ACCESS_PREFIX + day + RedisConstant.KEY_SEPARATOR + "article";
+            String articleKey = RedisConstant.ACCESS_PREFIX + yesterday + RedisConstant.KEY_SEPARATOR + "article";
             Map<Object, Object> articleUVAccessMap = redisUtil.hGetAll(articleKey + "_uv");
             Map<Object, Object> articlePVAccessMap = redisUtil.hGetAll(articleKey + "_pv");
             List<Access> accessList = buildAccessList(articleUVAccessMap, articlePVAccessMap);

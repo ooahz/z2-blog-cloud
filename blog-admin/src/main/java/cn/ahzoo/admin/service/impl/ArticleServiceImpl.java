@@ -22,9 +22,9 @@ import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
 import cn.ahzoo.utils.utils.GenerateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -33,14 +33,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         implements ArticleService {
 
-    @Autowired
-    private ESFeignClientInterface esFeignClientInterface;
-
-    @Autowired
-    private ArticleColumnService articleColumnService;
+    private final ESFeignClientInterface esFeignClientInterface;
+    private final ArticleColumnService articleColumnService;
 
     @Value("${config.seed}")
     private long seed;
@@ -77,13 +75,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         Article article = ArticleMapping.INSTANCE.dto2Article(articleDTO);
         save(article);
         articleDTO.setId(article.getId());
-        saveArticleContent(articleDTO);
-        articleColumnService.saveArticleColumn(articleDTO);
-        return Result.success();
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public void saveArticleContent(ArticleDTO articleDTO) {
         String formatHtml = ArticleUtil.formatHtml(articleDTO.getHtmlContent());
         articleDTO.setHtmlContent(formatHtml);
         baseMapper.saveArticleContent(articleDTO);
@@ -91,6 +82,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
             ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.dto2ArticleESRecord(articleDTO);
             esFeignClientInterface.save(articleESRecord);
         }
+        articleColumnService.saveArticleColumn(articleDTO);
+        return Result.success();
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -101,13 +94,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
         Article article = ArticleMapping.INSTANCE.dto2Article(articleDTO);
         updateById(article);
         articleDTO.setId(article.getId());
-        updateArticleContent(articleDTO);
-        articleColumnService.updateArticleColumn(articleDTO);
-        return Result.success();
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    public void updateArticleContent(ArticleDTO articleDTO) {
         String formatHtml = ArticleUtil.formatHtml(articleDTO.getHtmlContent());
         articleDTO.setHtmlContent(formatHtml);
         baseMapper.updateArticleContent(articleDTO);
@@ -115,6 +101,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
             ArticleESRecord articleESRecord = ArticleMapping.INSTANCE.dto2ArticleESRecord(articleDTO);
             esFeignClientInterface.save(articleESRecord);
         }
+        articleColumnService.updateArticleColumn(articleDTO);
+        return Result.success();
     }
 
     @CacheEvict(value = RedisConstant.SYSTEM_STATISTICS_KEY, allEntries = true)
