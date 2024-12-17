@@ -22,4 +22,6 @@ public interface ColumnService extends IService<Column> {
     ResultList<List<ColumnItemVO>> listColumnByArticleId(long articleId);
 
     Result<ColumnInfoVO> getColumnInfoByName(String name);
+
+    ResultList<List<ColumnItemVO>> listAllColumn();
 }

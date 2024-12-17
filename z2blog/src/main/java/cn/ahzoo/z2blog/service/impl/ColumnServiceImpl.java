@@ -6,6 +6,7 @@ import cn.ahzoo.utils.model.ResultPage;
 import cn.ahzoo.z2blog.constant.Constant;
 import cn.ahzoo.z2blog.mapper.ColumnMapper;
 import cn.ahzoo.z2blog.model.entity.Column;
+import cn.ahzoo.z2blog.model.mapstruct.ColumnMapping;
 import cn.ahzoo.z2blog.model.vo.ColumnInfoVO;
 import cn.ahzoo.z2blog.model.vo.ColumnItemVO;
 import cn.ahzoo.z2blog.model.vo.ArticleItemVO;
@@ -53,6 +54,13 @@ public class ColumnServiceImpl extends ServiceImpl<ColumnMapper, Column>
         Long count = articleColumnService.countArticleByColumnId(columnInfo.getId());
         columnInfo.setTotal(count);
         return Result.success(columnInfo);
+    }
+
+    @Override
+    public ResultList<List<ColumnItemVO>> listAllColumn() {
+        List<Column> list = list();
+        List<ColumnItemVO> columnItemVOS = ColumnMapping.INSTANCE.list2VOs(list);
+        return ResultList.success(ResultPage.emptyPage(), columnItemVOS);
     }
 
     private List<ArticleItemVO> listArticleByColumnId(long columnId) {

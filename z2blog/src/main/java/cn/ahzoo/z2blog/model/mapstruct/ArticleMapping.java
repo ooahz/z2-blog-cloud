@@ -15,8 +15,8 @@ import java.util.List;
  */
 @Mapper
 public interface ArticleMapping {
-    ArticleMapping INSTANCE = Mappers.getMapper(ArticleMapping.class);
 
+    ArticleMapping INSTANCE = Mappers.getMapper(ArticleMapping.class);
 
     List<ArticleVO> list2VOs(List<Article> articleList);
 }

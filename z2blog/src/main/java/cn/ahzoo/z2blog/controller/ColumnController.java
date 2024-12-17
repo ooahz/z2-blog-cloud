@@ -34,6 +34,12 @@ public class ColumnController {
         return columnService.listColumnByCategoryId(categoryId, pagination);
     }
 
+    @Operation(summary = "获取全部专栏列表")
+    @GetMapping("/all")
+    public ResultList<List<ColumnItemVO>> listAll() {
+        return columnService.listAllColumn();
+    }
+
     @Operation(summary = "获取专栏页信息")
     @GetMapping("/info/{name}")
     public Result<ColumnInfoVO> info(@PathVariable String name) {
