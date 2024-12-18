@@ -1,5 +1,6 @@
 package cn.ahzoo.comment.service;
 
+import cn.ahzoo.comment.model.dto.CommentDTO;
 import cn.ahzoo.comment.model.entity.Comment;
 import cn.ahzoo.comment.model.vo.CommentVO;
 import cn.ahzoo.utils.model.Result;
@@ -12,7 +13,9 @@ public interface CommentService extends IService<Comment> {
 
     ResultList<List<CommentVO>> selectByArticleId(String articleId, int page);
 
-    Result<?> saveComment(Comment comment);
+    Result<?> saveComment(CommentDTO commentDTO);
 
     ResultList<?> selectTop();
+
+    void sendEmail(CommentDTO commentDTO);
 }

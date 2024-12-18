@@ -1,7 +1,7 @@
 package cn.ahzoo.comment.controller;
 
 
-import cn.ahzoo.comment.model.entity.Comment;
+import cn.ahzoo.comment.model.dto.CommentDTO;
 import cn.ahzoo.comment.model.vo.CommentVO;
 import cn.ahzoo.comment.service.CommentService;
 import cn.ahzoo.utils.model.Result;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @description 评论视图
  * @author 十玖八柒（Ahzoo）
+ * @description 评论视图
  * @github https://github.com/ooahz
  * @date 2024/5
  */
@@ -32,8 +32,10 @@ public class CommentController {
     }
 
     @PostMapping("")
-    public Result<?> saveComment(@RequestBody Comment comment) {
-        return commentService.saveComment(comment);
+    public Result<?> saveComment(@RequestBody CommentDTO commentDTO) {
+        Result<?> result = commentService.saveComment(commentDTO);
+        commentService.sendEmail(commentDTO);
+        return result;
     }
 
     @GetMapping("/top")

@@ -31,20 +31,59 @@ public class Comment implements Serializable {
      */
     private String website;
 
+    /**
+     * 父评论
+     */
     private Long parentId;
 
+    /**
+     *
+     */
     private String userAvatar;
 
+    /**
+     *
+     */
     private String userName;
 
+    /**
+     *
+     */
     private String userWebsite;
 
+    /**
+     *
+     */
     private String userEmail;
 
+    /**
+     * 回复用户
+     */
     private String replyName;
 
+    /**
+     *
+     */
     private String content;
 
+    /**
+     *
+     */
+    private String ip;
+
+    /**
+     * 归属地
+     */
+    private String area;
+
+    /**
+     * 客户端
+     */
+    private String userAgent;
+
+    /**
+     *
+     */
     @TableField(value = "created_date", fill = FieldFill.INSERT)
     private Date createdDate;
 

@@ -2,6 +2,24 @@ server:
   port: 8090
 
 spring:
+  mail:
+    host: { 邮件发送域名 }
+    username: { 邮箱地址 }
+    password: { 密码 }
+    port: { 邮件发送端口号 }
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+          socketFactoryPort: { 邮件发送端口号 }
+          ssl:
+            trust: "*"
+            enable: true
+          starttls:
+            enable: true
+          auth: true
+        debug: true
   datasource:
     #    url: jdbc:mysql://localhost:3306/blog_z2
     url: jdbc:mysql://{ 数据库地址 }:{ 数据库端口 }/{ 数据库名 }
@@ -53,3 +71,9 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+author:
+  mail:
+    enable: true
+    mine: { 本人邮件 }
+    sender: { 邮件发送邮箱 }

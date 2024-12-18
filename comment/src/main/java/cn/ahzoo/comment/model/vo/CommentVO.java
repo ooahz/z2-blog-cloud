@@ -17,6 +17,8 @@ public class CommentVO {
     private String replyName;
     private String tagName;
     private String content;
+    private String area;
+    private String userAgent;
     private Date createdDate;
     private List<CommentVO> child;
 }

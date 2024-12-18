@@ -5,18 +5,21 @@
 <mapper namespace="cn.ahzoo.comment.mapper.CommentMapper">
 
     <resultMap id="BaseResultMap" type="cn.ahzoo.comment.model.entity.Comment">
-        <id property="id" column="id" jdbcType="BIGINT"/>
-        <result property="articleId" column="article_id" jdbcType="VARCHAR"/>
-        <result property="website" column="website" jdbcType="VARCHAR"/>
-        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
-        <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
-        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
-        <result property="userWebsite" column="user_website" jdbcType="VARCHAR"/>
-        <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
-        <result property="replyName" column="reply_name" jdbcType="VARCHAR"/>
-        <result property="content" column="content" jdbcType="VARCHAR"/>
-        <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
-        <result property="status" column="status" jdbcType="TINYINT"/>
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="articleId" column="article_id" jdbcType="VARCHAR"/>
+            <result property="website" column="website" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userWebsite" column="user_website" jdbcType="VARCHAR"/>
+            <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
+            <result property="replyName" column="reply_name" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="area" column="area" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
     </resultMap>
 
     <resultMap id="CommentList" type="cn.ahzoo.comment.model.vo.CommentVO">
@@ -24,6 +27,8 @@
         <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
         <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
         <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="VARCHAR"/>
+        <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
         <result property="userWebsite" column="user_website" jdbcType="VARCHAR"/>
         <result property="replyName" column="reply_name" jdbcType="VARCHAR"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -33,6 +38,8 @@
             <result property="parentId" column="parent_id2" jdbcType="BIGINT"/>
             <result property="userAvatar" column="user_avatar2" jdbcType="VARCHAR"/>
             <result property="userName" column="user_name2" jdbcType="VARCHAR"/>
+            <result property="area" column="area2" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent2" jdbcType="VARCHAR"/>
             <result property="userWebsite" column="user_website2" jdbcType="VARCHAR"/>
             <result property="replyName" column="reply_name2" jdbcType="VARCHAR"/>
             <result property="content" column="content2" jdbcType="VARCHAR"/>
@@ -42,9 +49,10 @@
 
     <sql id="Base_Column_List">
         c1.id,c1.article_id,c1.website,
-            c1.parent_id,c1.user_avatar,c1.user_name,
-            c1.user_website,c1.user_email,c1.reply_name,
-            c1.content,c1.created_date,c1.status
+        c1.parent_id,c1.user_avatar,c1.user_name,
+        c1.user_website,c1.user_email,c1.reply_name,
+        c1.content,c1.created_date,c1.status,
+        c1.ip,c1.area,c1.user_agent
     </sql>
 
     <sql id="Child_Column_List">
@@ -53,7 +61,8 @@
             c2.user_avatar user_avatar2,c2.user_name user_name2,
             c2.user_website user_website2,c2.user_email user_email2,
             c2.reply_name reply_name2,c2.content content2,
-            c2.created_date created_date2,c2.status status2
+            c2.created_date created_date2,c2.status status2,
+            c2.ip ip2,c2.area area2,c2.user_agent user_agent2
     </sql>
 
     <select id="selectTop" resultType="cn.ahzoo.comment.model.vo.TopCommentVO">
