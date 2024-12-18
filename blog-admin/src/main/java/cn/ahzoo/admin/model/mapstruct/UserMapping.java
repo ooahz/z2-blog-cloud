@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.model.mapstruct;
 
+import cn.ahzoo.admin.model.dto.UserDTO;
 import cn.ahzoo.admin.model.entity.User;
 import cn.ahzoo.admin.model.vo.UserInfoVO;
 import cn.ahzoo.admin.model.vo.UserVO;
@@ -16,7 +17,7 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapping {
     UserMapping INSTANCE = Mappers.getMapper(UserMapping.class);
 
-    User vo2User(UserVO userVO);
+    User dto2User(UserDTO userDTO);
 
     UserInfoVO user2UserInfoVO(User user);
 }
