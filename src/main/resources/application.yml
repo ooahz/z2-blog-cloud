@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: ahzoo-z2blog
+
+server:
+  servlet:
+    context-path: /blog

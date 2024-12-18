@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.admin.mapper.SysArticleMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.admin.model.entity.Article">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="path" column="path" jdbcType="VARCHAR"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+            <result property="style" column="style" jdbcType="VARCHAR"/>
+            <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
+            <result property="updatedDate" column="updated_date" jdbcType="TIMESTAMP"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="weight" column="weight" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="deprecated" column="deprecated" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,path,title,
+        description,thumbnail,style,
+        created_date,updated_date,type,
+        weight,status,deprecated
+    </sql>
+
+    <sql id="Preview_Article_List">
+        a.id,a.title,a.created_date,a.updated_date,a.type,
+        a.weight,a.status,a.deprecated
+    </sql>
+
+    <insert id="saveArticleContent">
+        INSERT INTO b_article_content(article_id, content_md, content_html)
+        VALUES (#{id}, #{content}, #{htmlContent})
+    </insert>
+
+    <update id="updateArticleContent">
+        UPDATE b_article_content
+        SET content_md=#{content},
+            content_html=#{htmlContent}
+        WHERE article_id = #{id}
+    </update>
+
+    <select id="validateDuplicateCount" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM b_article
+        WHERE (title=#{title}
+        OR path=#{articlePath})
+        <if test="id != null">
+            AND id <![CDATA[<>]]> #{id}
+        </if>
+    </select>
+
+    <select id="listArticleItem" resultType="cn.ahzoo.admin.model.vo.ArticleItemVO">
+        SELECT
+        <include refid="Preview_Article_List"/>
+        FROM b_article a
+        WHERE a.deprecated = 0
+        <if test="status != null and status != ''">
+            AND a.status = #{status}
+        </if>
+        <if test="type != null and type != ''">
+            AND a.type = #{type}
+        </if>
+        <if test="columnId != null">
+            AND a.id IN (
+            SELECT article_id
+            FROM b_article_column
+            WHERE column_id = #{columnId}
+            )
+        </if>
+        ORDER BY a.weight DESC, a.created_date DESC
+        LIMIT #{paginationIndex}, #{size}
+    </select>
+
+    <select id="selectArticleById" resultType="cn.ahzoo.admin.model.vo.ArticleVO">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM b_article
+        WHERE deprecated = 0
+        AND id = #{articleId}
+    </select>
+
+    <select id="selectArticleContentById" resultType="cn.ahzoo.admin.model.dto.ArticleContentDTO">
+        SELECT article_id, content_md AS content
+        FROM b_article_content
+        WHERE article_id = #{articleId}
+    </select>
+
+    <select id="countArticleByColumnId" resultType="java.lang.Long">
+        SELECT count(1)
+        FROM b_article_column
+        WHERE column_id = #{columnId}
+    </select>
+
+    <select id="countArticle" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM b_article
+        WHERE deprecated = 0
+    </select>
+
+    <insert id="insertArticleColumn">
+        INSERT INTO b_article_column(article_id, column_id)
+        VALUES
+        <foreach collection="columnIds" item="columnId" separator=",">
+            (#{articleId},#{columnId})
+        </foreach>
+    </insert>
+
+    <delete id="removeArticleColumn">
+        DELETE FROM b_article_column
+        WHERE article_id = #{articleId}
+        AND column_id IN
+        <foreach collection="columnIds" item="columnId" separator="," open="(" close=")">
+            #{columnId}
+        </foreach>
+    </delete>
+
+    <delete id="removeArticleColumnByArticleId">
+        DELETE FROM b_article_column
+        WHERE article_id = #{articleId}
+    </delete>
+</mapper>

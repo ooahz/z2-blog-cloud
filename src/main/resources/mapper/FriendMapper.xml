@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.z2blog.mapper.FriendMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.z2blog.model.entity.Friend">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="oldWebsite" column="old_website" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="website" column="website" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="weight" column="weight" jdbcType="INTEGER"/>
+            <result property="type" column="type" jdbcType="TINYINT"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,old_website,email,
+        website,name,description,
+        avatar,weight,type,
+        status
+    </sql>
+
+    <select id="listFriends" resultType="cn.ahzoo.z2blog.model.vo.FriendVO">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM b_friend
+        WHERE status = 1
+        ORDER BY weight DESC
+    </select>
+
+    <select id="selectByWebsite" resultType="cn.ahzoo.z2blog.model.entity.Friend">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM b_friend
+        WHERE website = #{website}
+    </select>
+
+    <select id="selectUpdateByWebsite" resultType="cn.ahzoo.z2blog.model.entity.Friend">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM b_friend
+        WHERE old_website = #{website}
+        AND status = 3
+    </select>
+</mapper>

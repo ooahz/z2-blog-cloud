@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.z2blog.mapper.ColumnMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.z2blog.model.entity.Column">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+            <result property="style" column="style" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <resultMap id="ColumnInfoVOMap" type="cn.ahzoo.z2blog.model.vo.ColumnInfoVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+        <result property="style" column="style" jdbcType="VARCHAR"/>
+        <collection property="categoryList" ofType="cn.ahzoo.z2blog.model.vo.CategoryVO">
+            <id property="id" column="category_id" jdbcType="BIGINT"/>
+            <result property="name" column="category_name" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="ColumnItemVOMap" type="cn.ahzoo.z2blog.model.vo.ColumnItemVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
+        <collection property="articleList" ofType="cn.ahzoo.z2blog.model.vo.BriefArticleVO">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        co.id,co.name,co.description,
+        co.thumbnail,co.style
+    </sql>
+
+    <select id="listColumnItemByCategoryId" resultMap="ColumnItemVOMap">
+        SELECT
+        <include refid="Base_Column_List"></include>,
+        a.id,a.title
+        FROM b_column co
+        LEFT JOIN b_category_column cc ON co.id = cc.column_id
+        LEFT JOIN b_article_column ac ON co.id = ac.column_id
+        LEFT JOIN b_article a ON ac.article_id = a.id
+        AND a.status = 1 AND a.deprecated = 0
+        WHERE cc.category_id = #{categoryId}
+        LIMIT #{paginationIndex}, #{size}
+    </select>
+
+    <select id="selectColumnInfoByName" resultMap="ColumnInfoVOMap">
+        SELECT c.id,
+               c.name,
+               c.description,
+               c.thumbnail,
+               c.style,
+               ca.id   category_id,
+               ca.name category_name
+        FROM b_column c
+                 LEFT JOIN b_category_column cc
+                           ON c.id = cc.column_id
+                 LEFT JOIN b_category ca
+                           ON ca.id = cc.category_id
+        WHERE c.name = #{name}
+    </select>
+
+    <select id="countByCategoryId" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM b_column co
+                 LEFT JOIN b_category_column cc
+                           ON co.id = cc.column_id
+        WHERE cc.category_id = #{categoryId}
+    </select>
+
+    <select id="listColumnItemByArticleId" resultType="cn.ahzoo.z2blog.model.vo.ColumnItemVO">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM b_column co
+        LEFT JOIN b_category_column cc ON co.id = cc.column_id
+        LEFT JOIN b_article_column ac ON co.id = ac.column_id
+        WHERE ac.article_id = #{articleId}
+        GROUP BY co.id
+        LIMIT 3
+    </select>
+</mapper>

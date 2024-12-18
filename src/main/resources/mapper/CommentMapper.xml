@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.comment.mapper.CommentMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.comment.model.entity.Comment">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="articleId" column="article_id" jdbcType="VARCHAR"/>
+            <result property="website" column="website" jdbcType="VARCHAR"/>
+            <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+            <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+            <result property="userWebsite" column="user_website" jdbcType="VARCHAR"/>
+            <result property="userEmail" column="user_email" jdbcType="VARCHAR"/>
+            <result property="replyName" column="reply_name" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="ip" column="ip" jdbcType="VARCHAR"/>
+            <result property="area" column="area" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+            <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
+            <result property="status" column="status" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <resultMap id="CommentList" type="cn.ahzoo.comment.model.vo.CommentVO">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="parentId" column="parent_id" jdbcType="BIGINT"/>
+        <result property="userAvatar" column="user_avatar" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="area" column="area" jdbcType="VARCHAR"/>
+        <result property="userAgent" column="user_agent" jdbcType="VARCHAR"/>
+        <result property="userWebsite" column="user_website" jdbcType="VARCHAR"/>
+        <result property="replyName" column="reply_name" jdbcType="VARCHAR"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
+        <collection property="child" ofType="cn.ahzoo.comment.model.vo.CommentVO">
+            <id property="id" column="id2" jdbcType="BIGINT"/>
+            <result property="parentId" column="parent_id2" jdbcType="BIGINT"/>
+            <result property="userAvatar" column="user_avatar2" jdbcType="VARCHAR"/>
+            <result property="userName" column="user_name2" jdbcType="VARCHAR"/>
+            <result property="area" column="area2" jdbcType="VARCHAR"/>
+            <result property="userAgent" column="user_agent2" jdbcType="VARCHAR"/>
+            <result property="userWebsite" column="user_website2" jdbcType="VARCHAR"/>
+            <result property="replyName" column="reply_name2" jdbcType="VARCHAR"/>
+            <result property="content" column="content2" jdbcType="VARCHAR"/>
+            <result property="createdDate" column="created_date2" jdbcType="TIMESTAMP"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        c1.id,c1.article_id,c1.website,
+        c1.parent_id,c1.user_avatar,c1.user_name,
+        c1.user_website,c1.user_email,c1.reply_name,
+        c1.content,c1.created_date,c1.status,
+        c1.ip,c1.area,c1.user_agent
+    </sql>
+
+    <sql id="Child_Column_List">
+        c2.id id2,c2.article_id article_id2,
+            c2.website website2,c2.parent_id parent_id2,
+            c2.user_avatar user_avatar2,c2.user_name user_name2,
+            c2.user_website user_website2,c2.user_email user_email2,
+            c2.reply_name reply_name2,c2.content content2,
+            c2.created_date created_date2,c2.status status2,
+            c2.ip ip2,c2.area area2,c2.user_agent user_agent2
+    </sql>
+
+    <select id="selectTop" resultType="cn.ahzoo.comment.model.vo.TopCommentVO">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM b_comment c1
+        WHERE status = 1
+        ORDER BY created_date DESC
+        limit 0, 4
+    </select>
+
+    <select id="selectByArticleId" resultMap="CommentList">
+        SELECT <include refid="Base_Column_List"></include>,
+        <include refid="Child_Column_List"></include>
+        FROM b_comment c1
+        LEFT JOIN b_comment c2
+        ON c1.id = c2.parent_id
+        WHERE c1.article_id = #{articleId}
+        AND c1.parent_id = 0
+        AND c1.status = 1
+        ORDER BY c1.created_date DESC
+        LIMIT #{paginationIndex}, #{size}
+    </select>
+
+</mapper>
