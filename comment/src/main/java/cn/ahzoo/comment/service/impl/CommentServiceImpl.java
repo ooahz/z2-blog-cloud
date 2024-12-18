@@ -14,7 +14,6 @@ import cn.ahzoo.common.utils.IpUtil;
 import cn.ahzoo.utils.model.Result;
 import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
-import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -96,10 +95,10 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         if (name.length() > 25) {
             throw new BizException(ResultCode.INVALID_PARAM.getCode(), "昵称字数超过限制");
         }
-        if (ObjectUtil.isNotEmpty(email) && email.length() > 36) {
+        if (ObjectUtils.isNotEmpty(email) && email.length() > 36) {
             throw new BizException(ResultCode.INVALID_PARAM.getCode(), "邮箱字数超过限制");
         }
-        if (ObjectUtil.isNotEmpty(web) && web.length() > 36) {
+        if (ObjectUtils.isNotEmpty(web) && web.length() > 36) {
             throw new BizException(ResultCode.INVALID_PARAM.getCode(), "网址字数超过限制");
         }
         if (StringUtils.isEmpty(comment.getArticleId())) {
