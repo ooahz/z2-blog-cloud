@@ -1,21 +1,18 @@
 package cn.ahzoo.z2blog.model.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @TableName b_access
+ * @TableName b_access_article
  */
-@TableName(value = "b_access")
+@TableName(value = "b_access_article")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Access implements Serializable {
+public class AccessArticle implements Serializable {
+
     /**
      *
      */
@@ -25,7 +22,7 @@ public class Access implements Serializable {
     /**
      *
      */
-    private Long uv;
+    private Long articleId;
 
     /**
      *
@@ -43,12 +40,11 @@ public class Access implements Serializable {
     @TableField(value = "updated_date", fill = FieldFill.INSERT_UPDATE)
     private Date updatedDate;
 
-    public Access(Long uv, Long pv, String date) {
-        this.uv = uv;
+    public AccessArticle(Long articleId, Long pv, String date) {
+        this.articleId = articleId;
         this.pv = pv;
         this.date = date;
     }
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

@@ -1,5 +1,6 @@
 package cn.ahzoo.z2blog.quartz;
 
+import cn.ahzoo.z2blog.service.AccessArticleService;
 import cn.ahzoo.z2blog.service.AccessService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -21,6 +22,8 @@ import org.springframework.stereotype.Component;
 public class AccessQuartz {
 
     private final AccessService accessService;
+    private final AccessArticleService accessArticleService;
+
     private static final Logger logger = LoggerFactory.getLogger(AccessQuartz.class);
 
     /**
@@ -30,7 +33,7 @@ public class AccessQuartz {
     @Async
     public void access() {
         executeWithExceptionHandling(accessService::updateWebSiteAccess, "持久化网站访问量失败");
-        executeWithExceptionHandling(accessService::updateArticleAccess, "持久化文章访问量失败");
+        executeWithExceptionHandling(accessArticleService::updateArticleAccess, "持久化文章访问量失败");
     }
 
     private void executeWithExceptionHandling(Runnable task, String errorMessage) {

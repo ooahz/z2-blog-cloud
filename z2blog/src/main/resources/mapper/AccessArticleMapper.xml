@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ahzoo.z2blog.mapper.AccessArticleMapper">
+
+    <resultMap id="BaseResultMap" type="cn.ahzoo.z2blog.model.entity.AccessArticle">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="articleId" column="article_id" jdbcType="INTEGER"/>
+            <result property="pv" column="pv" jdbcType="INTEGER"/>
+            <result property="date" column="date" jdbcType="VARCHAR"/>
+            <result property="updatedDate" column="updated_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,article_id,pv,
+        date,updated_date
+    </sql>
+
+    <select id="selectBatchByArticleIds" resultType="cn.ahzoo.z2blog.model.entity.AccessArticle">
+        SELECT
+        <include refid="Base_Column_List"></include>
+        FROM b_access_article
+        WHERE article_id IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

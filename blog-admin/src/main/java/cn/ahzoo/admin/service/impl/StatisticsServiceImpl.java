@@ -50,8 +50,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public ViewStatisticsVO getRedisWebsiteAccess() {
-        int pv = 0;
-        int uv = 0;
+        long pv = 0;
+        long uv = 0;
         try {
             int day = DateUtil.getDayOfToday();
             String webKey = RedisConstant.ACCESS_PREFIX + day + RedisConstant.KEY_SEPARATOR + "website";
@@ -59,11 +59,10 @@ public class StatisticsServiceImpl implements StatisticsService {
             if (StringUtils.isNotEmpty(pvStr)) {
                 pv = Integer.parseInt(pvStr);
             }
-            uv = redisUtil.sSize(webKey + "_ip").intValue();
+            uv = redisUtil.hllSize(webKey + "_uv");
         } catch (Exception e) {
             logger.error("获取全站访问量失败：{}", e.getMessage());
         }
         return new ViewStatisticsVO(pv, uv);
     }
-
 }

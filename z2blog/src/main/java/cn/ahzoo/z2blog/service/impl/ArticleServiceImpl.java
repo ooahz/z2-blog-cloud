@@ -40,7 +40,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article>
     @Override
     public Result<ArticleVO> getArticleDetail(String articlePath) {
         ArticleVO articleVO = baseMapper.getArticleByPath(articlePath);
-        accessService.cacheArticlePVAndUV(articleVO.getId());
+        accessService.cacheArticleVisit(articleVO.getId());
         buildArticleContent(articleVO);
         return Result.success(articleVO);
     }

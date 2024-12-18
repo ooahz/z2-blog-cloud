@@ -1318,6 +1318,35 @@ public class RedisUtil {
         return redisTemplate.opsForZSet().scan(key, options);
     }
 
+    /**------------------HyperLogLo相关操作--------------------------------*/
+
+    /**
+     * 添加元素到HyperLogLog结构
+     * @param key
+     * @param element
+     */
+    public void hllAdd(String key, String element) {
+        redisTemplate.opsForHyperLogLog().add(key, element);
+    }
+
+    /**
+     * 估算HyperLogLog结构的基数
+     * @param key
+     * @return
+     */
+    public long hllSize(String key) {
+        return redisTemplate.opsForHyperLogLog().size(key);
+    }
+
+    /**
+     * 合并两个HyperLogLog结构
+     * @param key1
+     * @param key2
+     */
+    public void hllUnion(String key1, String key2) {
+        redisTemplate.opsForHyperLogLog().union(key1, key2);
+    }
+
     /**
      * 获取redisTemplate
      *

@@ -18,7 +18,3 @@ public class AccessServiceImpl extends ServiceImpl<AccessMapper, Access>
         return AccessMapping.INSTANCE.access2WebsiteDTO(access);
     }
 }
-
-
-
-

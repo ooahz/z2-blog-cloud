@@ -11,6 +11,6 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ViewStatisticsVO implements Serializable {
     private static final long serialVersionUID = 1L;
-    Integer pv;
-    Integer uv;
+    Long pv;
+    Long uv;
 }

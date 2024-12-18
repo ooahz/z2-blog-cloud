@@ -18,4 +18,5 @@ public interface Constant {
     int TYPE_WEBSITE = 1;
     int TYPE_ARTICLE = 2;
 
+    String ACCESS_DATEFORMAT = "yyyy-MM";
 }

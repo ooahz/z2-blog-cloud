@@ -6,15 +6,14 @@
 
     <resultMap id="BaseResultMap" type="cn.ahzoo.z2blog.model.entity.Access">
             <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="articleId" column="article_id" jdbcType="BIGINT"/>
             <result property="uv" column="uv" jdbcType="INTEGER"/>
             <result property="pv" column="pv" jdbcType="INTEGER"/>
-            <result property="type" column="type" jdbcType="TINYINT"/>
-            <result property="date" column="date" jdbcType="TIMESTAMP"/>
+            <result property="date" column="date" jdbcType="VARCHAR"/>
+            <result property="updatedDate" column="updated_date" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,article_id,uv,
-        pv,type,date
+        id,uv,pv,
+        date,updated_date
     </sql>
 </mapper>

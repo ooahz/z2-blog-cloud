@@ -14,15 +14,10 @@ public interface AccessService extends IService<Access> {
     /**
      * 缓存文章访问量
      */
-    void cacheArticlePVAndUV(Long articleId);
+    void cacheArticleVisit(Long articleId);
 
     /**
      * 持久化网站访问量
      */
     void updateWebSiteAccess();
-
-    /**
-     * 持久化文章访问量
-     */
-    void updateArticleAccess();
 }
