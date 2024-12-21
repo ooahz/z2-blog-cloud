@@ -9,7 +9,7 @@
 
     <artifactId>z2blog</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>z2blog</name>
     <description>Z次元博客</description>
@@ -117,7 +117,7 @@
         <dependency>
             <groupId>cn.ahzoo</groupId>
             <artifactId>common</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

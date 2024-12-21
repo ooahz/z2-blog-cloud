@@ -4,12 +4,12 @@
     <parent>
         <groupId>cn.ahzoo</groupId>
          <artifactId>cloud-parent</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>blog-admin</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <name>blog-admin</name>
     <description>后台管理服务</description>
@@ -121,7 +121,7 @@
         <dependency>
             <groupId>cn.ahzoo</groupId>
             <artifactId>common</artifactId>
-            <version>1.1.0</version>
+            <version>1.2.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
