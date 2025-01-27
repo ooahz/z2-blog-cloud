@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>cn.ahzoo</groupId>
-    <artifactId>z2blog</artifactId>
+    <artifactId>z2blog-lite</artifactId>
     <packaging>jar</packaging>
 
-    <name>z2blog</name>
+    <name>z2blog-lite</name>
     <description>Z次元博客</description>
     <version>2.1.0</version>
     <url>https://github.com/ooahz</url>

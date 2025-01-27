@@ -2,7 +2,6 @@ package cn.ahzoo.z2blog.constant;
 
 public interface Constant {
 
-
     long DEFAULT_LONG= 0L;
 
     /**

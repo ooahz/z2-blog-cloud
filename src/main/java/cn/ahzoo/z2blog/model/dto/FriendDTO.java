@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 @Data
 public class FriendDTO {
-
     private Long id;
 
     @NotBlank(message = "网址不能为空")

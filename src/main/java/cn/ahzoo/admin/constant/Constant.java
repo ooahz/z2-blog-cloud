@@ -17,5 +17,4 @@ public interface Constant {
     int ARTICLE_TYPE_NORMAL = 1;
     int ARTICLE_TYPE_HIDE = 2;
     int ARTICLE_TYPE_DRAFT = 3;
-
 }

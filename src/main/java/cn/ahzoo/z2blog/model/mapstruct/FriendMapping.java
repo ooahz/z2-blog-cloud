@@ -13,7 +13,6 @@ import org.mapstruct.factory.Mappers;
  */
 @Mapper
 public interface FriendMapping {
-
     FriendMapping INSTANCE = Mappers.getMapper(FriendMapping.class);
 
     Friend dto2Friend(FriendDTO friendDTO);

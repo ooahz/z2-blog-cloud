@@ -115,7 +115,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         comment.setUserAgent(userAgent);
         comment.setIp(ipAddress);
         comment.setArea(ipArea);
-        comment.setUserAvatar(DEFAULT_USER_AVATAR);
         comment.setWebsite(originWebsite);
     }
 }

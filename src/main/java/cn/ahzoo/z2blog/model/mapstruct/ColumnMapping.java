@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Mapper
 public interface ColumnMapping {
-
     ColumnMapping INSTANCE = Mappers.getMapper(ColumnMapping.class);
 
     List<ColumnItemVO> list2VOs(List<Column> columnList);

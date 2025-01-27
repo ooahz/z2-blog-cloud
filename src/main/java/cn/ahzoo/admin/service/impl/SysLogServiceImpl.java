@@ -10,7 +10,3 @@ import org.springframework.stereotype.Service;
 public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog>
         implements SysLogService {
 }
-
-
-
-

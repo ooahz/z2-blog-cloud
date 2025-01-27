@@ -24,5 +24,4 @@ public enum ResultCode {
 
     private final int code;
     private final String message;
-
 }

@@ -31,5 +31,4 @@ public class ArticleUtil {
             element.attr("id", ID_PREFIX + index.getAndIncrement());
         }
     }
-
 }

@@ -26,7 +26,3 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     long countArticle();
 }
-
-
-
-

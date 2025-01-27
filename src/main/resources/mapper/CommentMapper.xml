@@ -83,7 +83,7 @@
         WHERE c1.article_id = #{articleId}
         AND c1.parent_id = 0
         AND c1.status = 1
-        ORDER BY c1.created_date DESC
+        ORDER BY c1.created_date DESC,c2.created_date ASC
         LIMIT #{paginationIndex}, #{size}
     </select>
 

@@ -11,7 +11,3 @@ public interface SysRoleMapper extends BaseMapper<Role> {
 
     List<String> listRoleCodeByUserId(Long userId);
 }
-
-
-
-

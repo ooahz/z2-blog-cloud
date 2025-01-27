@@ -29,7 +29,3 @@ public interface SysColumnMapper extends BaseMapper<Column> {
 
     void removeByColumnId(Long columnId);
 }
-
-
-
-

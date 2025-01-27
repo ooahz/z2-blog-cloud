@@ -18,7 +18,3 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, Role>
         return baseMapper.listRoleCodeByUserId(userId);
     }
 }
-
-
-
-

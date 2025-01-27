@@ -13,7 +13,6 @@ import org.mapstruct.factory.Mappers;
  */
 @Mapper
 public interface CommentMapping {
-
     CommentMapping INSTANCE = Mappers.getMapper(CommentMapping.class);
 
     Comment dto2Comment(CommentDTO commentDTO);

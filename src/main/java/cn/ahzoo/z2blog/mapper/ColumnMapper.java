@@ -20,7 +20,3 @@ public interface ColumnMapper extends BaseMapper<Column> {
 
     Long countByCategoryId(long categoryId);
 }
-
-
-
-

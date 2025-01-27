@@ -16,7 +16,3 @@ public interface FriendMapper extends BaseMapper<Friend> {
 
     Friend selectUpdateByWebsite(String website);
 }
-
-
-
-

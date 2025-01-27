@@ -12,7 +12,3 @@ public interface SysCategoryMapper extends BaseMapper<Category> {
 
     List<Long> listCategoryIdsByColumnId(Long columnId);
 }
-
-
-
-

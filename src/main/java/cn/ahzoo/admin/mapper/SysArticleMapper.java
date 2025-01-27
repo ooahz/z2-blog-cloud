@@ -36,7 +36,3 @@ public interface SysArticleMapper extends BaseMapper<Article> {
 
     Long countArticle();
 }
-
-
-
-

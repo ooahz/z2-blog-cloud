@@ -9,7 +9,3 @@ public interface SysUserMapper extends BaseMapper<User> {
 
     User selectUserByEmail(String email);
 }
-
-
-
-

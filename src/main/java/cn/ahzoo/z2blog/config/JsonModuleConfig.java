@@ -18,6 +18,5 @@ public class JsonModuleConfig extends SimpleModule {
         this.addSerializer(Long.class, ToStringSerializer.instance);
         this.addSerializer(Long.TYPE, ToStringSerializer.instance);
     }
-
 }
 
