@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: pub
   application:
     name: ahzoo-z2blog
 
