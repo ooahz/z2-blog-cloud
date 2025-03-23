@@ -6,6 +6,25 @@ Lite版本为轻量级版本，在保留原本功能的基础上，去除了需�
 
 Github：（十玖八柒）https://github.com/ooahz
 
+## 说明
+
+遇到什么问题，欢迎提issue
+
+获取更多信息以及交流讨论可移步此处：[文档&交流](https://blog.ahzoo.cn/p/z2blog/)
+
+## Star
+
+喜欢此项目的点点仓库的star吧！
+开源版本后续更新频率取决于star数量（关注度），没人关注的话后续就随缘更新了
+
+## 仓库地址
+
+博客前端开源仓库地址：[z2-nuxt-blog](https://github.com/ooahz/z2-blog-nuxt)
+
+博客后端开源仓库地址：[z2-blog-cloud](https://github.com/ooahz/z2-blog-cloud)
+
+后台管理前端开源仓库地址：[z2-blog-admin](https://github.com/ooahz/z2-blog-admin)
+
 ## 项目预览
 
 ### 博客
@@ -57,7 +76,7 @@ mvn clean package
 
 | id | email | password | salt | status |
 | :--:| :----: | :------: | :---: | :--: |
-| 1001 | admin@ahzoo.cn | 08780460b94d39592c9eb1b1cbc01a89654a756bded0d05000972361394c782f | 5c7a7321841702a50b834e | 1 |
+| 1001 | `admin@ahzoo.cn` | `08780460b94d39592c9eb1b1cbc01a89654a756bded0d05000972361394c782f` | `5c7a7321841702a50b834e` | 1 |
 
 在`sys_role`表中新增角色：
 
