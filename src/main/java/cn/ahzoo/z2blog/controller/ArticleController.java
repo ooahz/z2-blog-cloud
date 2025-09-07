@@ -7,7 +7,10 @@ import cn.ahzoo.z2blog.model.vo.ArticleVO;
 import cn.ahzoo.z2blog.service.ArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,20 +32,26 @@ public class ArticleController {
 
     @Operation(summary = "获取首页文章列表")
     @GetMapping("")
-    public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p", defaultValue = "1") @Min(value = 1, message = "页码不能小于1") int pagination) {
+    public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p", defaultValue = "1")
+                                                @Min(value = 1, message = "页码不能小于1") @Max(value = 1000, message = "页码不能大于1000")
+                                                int pagination) {
         return articleService.listArticle(pagination);
     }
 
     @Operation(summary = "获取文章详情")
     @GetMapping("/{articlePath}")
-    public Result<ArticleVO> detail(@PathVariable String articlePath) {
+    public Result<ArticleVO> detail(@PathVariable
+                                    @NotBlank(message = "文章地址有误") @Size(max = 20, message = "文章地址有误")
+                                    String articlePath) {
         return articleService.getArticleDetail(articlePath);
     }
 
     @Operation(summary = "获取专栏页文章列表")
     @GetMapping("/columns/{columnId}")
     public ResultList<List<ArticleItemVO>> listArticle(@PathVariable long columnId,
-                                                       @RequestParam(value = "p") @Min(value = 1, message = "页码不能小于1") int pagination) {
+                                                       @RequestParam(value = "p")
+                                                       @Min(value = 1, message = "页码不能小于1") @Max(value = 1000, message = "页码不能大于1000")
+                                                       int pagination) {
         return articleService.listArticleByColumnId(columnId, pagination);
     }
 }

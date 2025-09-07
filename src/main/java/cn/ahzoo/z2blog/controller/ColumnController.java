@@ -7,6 +7,7 @@ import cn.ahzoo.z2blog.model.vo.ColumnItemVO;
 import cn.ahzoo.z2blog.service.ColumnService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,9 @@ public class ColumnController {
     @Operation(summary = "获取专栏列表")
     @GetMapping("/{categoryId}")
     public ResultList<List<ColumnItemVO>> list(@PathVariable long categoryId,
-                                               @RequestParam(value = "p") @Min(value = 1, message = "页码不能小于1") int pagination) {
+                                               @RequestParam(value = "p")
+                                               @Min(value = 1, message = "页码不能小于1") @Max(value = 1000, message = "页码不能大于1000")
+                                               int pagination) {
         return columnService.listColumnByCategoryId(categoryId, pagination);
     }
 
