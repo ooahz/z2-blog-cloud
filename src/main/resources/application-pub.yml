@@ -62,6 +62,14 @@ author:
 config:
   seed: 1234567
 
+feature:
+  #  是否开启评论发送功能
+  comment: true
+  #  是否开启友链交换功能
+  friend: true
+  #  是否开启搜索功能
+  search: true
+
 springdoc:
   swagger-ui:
     enabled: true

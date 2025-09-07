@@ -18,7 +18,7 @@ public enum ResultCode {
     FREQUENT_ACCESS(200901, "请求过于频繁"),
 
     EXECUTION_ERROR(200401, "操作执行失败"),
-    NOT_ALLOWED(9200403, "不被允许的操作"),
+    NOT_ALLOWED(200403, "不被允许的操作"),
 
     ;
 

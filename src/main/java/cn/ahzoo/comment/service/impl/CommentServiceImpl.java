@@ -38,6 +38,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Value("${author.mail.mine}")
     private String authorEmail;
 
+    @Value("${feature.comment:true}")
+    private boolean enableComment;
+
     private static final String DEFAULT_USER_AVATAR = "data:image/webp;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAdElEQVR4Xu2RMQ6AMAwD+38x8kMk3sGAiExTN5aABfmUyY1zQ9v+Ma0P3uYHgmXdYvABc2VY14KySz85n5hP37+woBbk1XmBkS+cY0GQLwwErIA5wnYsCNiOJHiCBSU3AXvAXIF1LQhYVxJgruxgbsFwB/MD/P2sKIDHT2EAAAAASUVORK5CYII=";
     private static final int PAGE_SIZE = 20;
 
@@ -52,6 +55,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Result<?> saveComment(CommentDTO commentDTO) {
+        if (!enableComment) {
+            throw new BizException(ResultCode.NOT_ALLOWED.getCode(), "评论功能已关闭");
+        }
         Comment comment = CommentMapping.INSTANCE.dto2Comment(commentDTO);
         paramsValidate(comment);
         buildComment(comment);
