@@ -20,7 +20,7 @@ import java.util.List;
  * @github https://github.com/ooahz
  * @date 2024/12
  */
-@Tag(name = "搜索视图")
+@Tag(name = "搜索模块——搜索视图")
 @RestController
 @RequestMapping("v1/search")
 @AllArgsConstructor

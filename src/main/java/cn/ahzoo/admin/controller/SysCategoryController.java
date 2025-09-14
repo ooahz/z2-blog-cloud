@@ -20,7 +20,7 @@ import java.util.List;
  * @github https://github.com/ooahz
  * @date 2024/3
  */
-@Tag(name = "系统-分类视图")
+@Tag(name = "系统模块——分类视图")
 @RestController
 @RequestMapping("v1/a/categories")
 @AllArgsConstructor

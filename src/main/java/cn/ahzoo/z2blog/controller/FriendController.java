@@ -20,7 +20,7 @@ import java.util.List;
  * @github https://github.com/ooahz
  * @date 2024/4
  */
-@Tag(name = "友链视图")
+@Tag(name = "博客模块——友链视图")
 @RestController
 @RequestMapping("v1/friends")
 @AllArgsConstructor

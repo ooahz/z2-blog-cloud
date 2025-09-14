@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("v1/a/users")
 @AllArgsConstructor
-@Tag(name = "系统-用户视图")
+@Tag(name = "系统模块——用户视图")
 public class SysUserController {
 
     private final UserService userService;

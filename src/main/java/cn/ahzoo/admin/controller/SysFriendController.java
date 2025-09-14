@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("v1/a/friends")
 @AllArgsConstructor
-@Tag(name = "系统-友链视图")
+@Tag(name = "系统模块——友链视图")
 public class SysFriendController {
 
     private final FriendService friendService;

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("v1/a/routes")
 @AllArgsConstructor
-@Tag(name = "系统-动态路由")
+@Tag(name = "系统模块——动态路由")
 public class SysRouteController {
 
     @Operation(summary = "获取前端动态路由")

@@ -22,7 +22,7 @@ import java.util.List;
  * @github https://github.com/ooahz
  * @date 2024/3
  */
-@Tag(name = "文章视图")
+@Tag(name = "博客模块——文章视图")
 @RestController
 @RequestMapping("v1/articles")
 @AllArgsConstructor

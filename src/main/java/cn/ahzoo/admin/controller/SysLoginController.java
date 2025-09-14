@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("v1")
 @AllArgsConstructor
-@Tag(name = "系统-登录视图")
+@Tag(name = "系统模块——登录视图")
 public class SysLoginController {
 
     private final UserService userService;
