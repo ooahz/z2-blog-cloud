@@ -29,7 +29,7 @@ public class ColumnController {
     private final ColumnService columnService;
 
     @Operation(summary = "获取专栏列表")
-    @GetMapping("/{categoryId}")
+    @GetMapping("/category/{categoryId}")
     public ResultList<List<ColumnItemVO>> list(@PathVariable long categoryId,
                                                @RequestParam(value = "p")
                                                @Min(value = 1, message = "页码不能小于1") @Max(value = 1000, message = "页码不能大于1000")
