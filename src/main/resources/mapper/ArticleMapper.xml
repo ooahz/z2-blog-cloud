@@ -73,6 +73,15 @@
         LIMIT #{paginationIndex}, #{size}
     </select>
 
+    <select id="listArchiveItem" resultType="cn.ahzoo.z2blog.model.vo.ArchiveItemVO">
+        SELECT  id,path,title,created_date
+        FROM b_article
+        WHERE status = 1
+        AND deprecated = 0
+        ORDER BY created_date DESC
+        LIMIT #{paginationIndex}, #{size}
+    </select>
+
     <select id="selectArticleContentById" resultType="cn.ahzoo.z2blog.model.dto.ArticleContentDTO">
         SELECT article_id, content_html AS content
         FROM b_article_content

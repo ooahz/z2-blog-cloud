@@ -1,5 +1,6 @@
 package cn.ahzoo.z2blog.mapper;
 
+import cn.ahzoo.z2blog.model.vo.ArchiveItemVO;
 import cn.ahzoo.z2blog.model.dto.ArticleContentDTO;
 import cn.ahzoo.z2blog.model.entity.Article;
 import cn.ahzoo.z2blog.model.vo.ArticleVO;
@@ -25,4 +26,6 @@ public interface ArticleMapper extends BaseMapper<Article> {
     ArticleVO getArticleByPath(String path);
 
     long countArticle();
+
+    List<ArchiveItemVO> listArchiveItem(int paginationIndex, int size);
 }
