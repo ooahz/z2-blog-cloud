@@ -38,7 +38,7 @@ public class MailSendUtil {
         }
         try {
             String content = buildDefaultContent();
-            String title = "Z次元-收到了新的回复";
+            String title = "Z次源-收到了新的回复";
             sendEmail(email, content, title);
         } catch (Exception e) {
             logger.error("发送通知邮件异常，发送邮箱：{}，目标邮箱：{}，message：{}", sender,

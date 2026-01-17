@@ -13,7 +13,7 @@
     <packaging>jar</packaging>
 
     <name>z2blog-lite</name>
-    <description>Z次元博客</description>
+    <description>Z次源博客</description>
     <version>1.2.1</version>
     <url>https://github.com/ooahz</url>
 
