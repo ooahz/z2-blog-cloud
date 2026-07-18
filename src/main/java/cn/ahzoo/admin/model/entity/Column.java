@@ -34,11 +34,6 @@ public class Column implements Serializable {
      */
     private String thumbnail;
 
-    /**
-     * 专栏背景样式
-     */
-    private String style;
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

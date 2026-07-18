@@ -9,7 +9,6 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
-            <result property="style" column="style" jdbcType="VARCHAR"/>
     </resultMap>
 
 
@@ -18,7 +17,6 @@
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
-        <result property="style" column="style" jdbcType="VARCHAR"/>
         <collection property="categoryList" ofType="cn.ahzoo.z2blog.model.vo.CategoryVO">
             <id property="id" column="category_id" jdbcType="BIGINT"/>
             <result property="name" column="category_name" jdbcType="VARCHAR"/>
@@ -38,7 +36,7 @@
 
     <sql id="Base_Column_List">
         co.id,co.name,co.description,
-        co.thumbnail,co.style
+        co.thumbnail
     </sql>
 
     <select id="listColumnItemByCategoryId" resultMap="ColumnItemVOMap">
@@ -59,7 +57,6 @@
                c.name,
                c.description,
                c.thumbnail,
-               c.style,
                ca.id   category_id,
                ca.name category_name
         FROM b_column c

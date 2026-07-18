@@ -3,6 +3,7 @@ package cn.ahzoo.admin.controller;
 import cn.ahzoo.admin.model.dto.UserDTO;
 import cn.ahzoo.admin.service.UserService;
 import cn.ahzoo.utils.model.Result;
+import cn.dev33.satoken.annotation.SaCheckRole;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class SysUserController {
     private final UserService userService;
 
     @Operation(summary = "重置密码")
+    @SaCheckRole("admin")
     @PostMapping("/reset")
     public Result<?> resetPassword(@RequestBody UserDTO userDTO) {
         return userService.resetPassword(userDTO);

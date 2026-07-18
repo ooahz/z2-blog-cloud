@@ -10,6 +10,8 @@ import cn.ahzoo.utils.model.ResultList;
 import cn.dev33.satoken.annotation.SaCheckRole;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -40,9 +42,16 @@ public class SysArticleController {
     @GetMapping("")
     public ResultList<List<ArticleItemVO>> list(@RequestParam(value = "p") int pagination,
                                                 @RequestParam(required = false) String status,
-                                                @RequestParam(required = false) String type,
                                                 @RequestParam(required = false) String columnId) {
-        return articleService.listArticle(pagination, status, type, columnId);
+        return articleService.listArticle(pagination, status, columnId);
+    }
+
+    @Operation(summary = "获取最近更新的文章列表")
+    @GetMapping("/recent")
+    public ResultList<List<ArticleItemVO>> listRecent(@RequestParam(value = "size", defaultValue = "5")
+                                                      @Min(value = 1, message = "数量不能小于1") @Max(value = 20, message = "数量不能大于20")
+                                                      int size) {
+        return articleService.listRecentArticles(size);
     }
 
     @Operation(summary = "新增文章")

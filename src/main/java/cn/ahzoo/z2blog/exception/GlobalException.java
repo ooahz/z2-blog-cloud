@@ -8,6 +8,7 @@ import cn.dev33.satoken.exception.NotLoginException;
 import cn.dev33.satoken.exception.NotRoleException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -30,7 +31,7 @@ public class GlobalException {
     @ExceptionHandler(NotLoginException.class)
     public Result<?> notLoginException(NotLoginException e) {
         logger.warn(e.getMessage());
-        return Result.failed(ResultCode.INVALID_TOKEN.getCode(), e.getMessage());
+        return Result.failed(ResultCode.    INVALID_TOKEN.getCode(), e.getMessage());
     }
 
     /**
@@ -61,13 +62,27 @@ public class GlobalException {
     }
 
     /**
-     * 参数检验异常
+     * 方法参数检验异常
      */
     @ExceptionHandler(HandlerMethodValidationException.class)
     public Result<?> paramValidationException(HandlerMethodValidationException e) {
         String msg = "参数校验失败";
         try {
             msg = e.getValueResults().get(0).getResolvableErrors().get(0).getDefaultMessage();
+        } catch (Exception ex) {
+            logger.error("获取参数校验信息失败", e);
+        }
+        return Result.failed(CommonResultCode.SERVER_ERROR.getCode(), msg);
+    }
+
+    /**
+     * 实体类参数检验异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result<?> paramValidationException(MethodArgumentNotValidException e) {
+        String msg = "参数校验失败";
+        try {
+            msg = e.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
         } catch (Exception ex) {
             logger.error("获取参数校验信息失败", e);
         }

@@ -10,7 +10,6 @@ public class ArticleItemVO {
     private String title;
     private Date createdDate;
     private Date updatedDate;
-    private Integer type;
     private Integer weight;
     private Integer status;
 }

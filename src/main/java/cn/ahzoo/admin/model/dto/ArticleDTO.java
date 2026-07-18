@@ -16,18 +16,14 @@ public class ArticleDTO {
     private String title;
 
     @NotBlank(message = "内容不能为空")
-    private String content;
-
-    @NotNull(message = "未选择专栏")
-    private List<Long> columnIds;
-
-    private String description;
     private String htmlContent;
+
+    private List<Long> columnIds;
+    private String content;
+    private String description;
     private String thumbnail;
-    private String style;
     private Date createdDate;
     private Date updatedDate;
     private Integer weight;
-    private Integer type;
     private Integer status;
 }

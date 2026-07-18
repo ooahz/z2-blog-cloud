@@ -14,7 +14,9 @@ public interface ArticleService extends IService<Article> {
 
     Result<ArticleVO> getArticleDetail(Long articleId);
 
-    ResultList<List<ArticleItemVO>> listArticle(int pagination, String status, String type, String columnId);
+    ResultList<List<ArticleItemVO>> listArticle(int pagination, String status, String columnId);
+
+    ResultList<List<ArticleItemVO>> listRecentArticles(int size);
 
     Result<?> saveArticle(ArticleDTO articleDTO);
 

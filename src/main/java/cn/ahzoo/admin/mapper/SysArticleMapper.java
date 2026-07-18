@@ -22,7 +22,9 @@ public interface SysArticleMapper extends BaseMapper<Article> {
 
     void updateArticleContent(ArticleDTO articleDTO);
 
-    List<ArticleItemVO> listArticleItem(int paginationIndex, int size, String status, String type, String columnId);
+    List<ArticleItemVO> listArticleItem(int paginationIndex, int size, String status, String columnId);
+
+    List<ArticleItemVO> listRecentArticleItem(int size);
 
     ArticleVO selectArticleById(Long articleId);
 
@@ -35,4 +37,7 @@ public interface SysArticleMapper extends BaseMapper<Article> {
     void removeArticleColumnByArticleId(Long articleId);
 
     Long countArticle();
+
+    Long countArticleByStatus(Integer status);
+
 }

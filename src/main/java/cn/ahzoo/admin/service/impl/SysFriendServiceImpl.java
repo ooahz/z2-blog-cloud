@@ -11,6 +11,7 @@ import cn.ahzoo.utils.model.ResultList;
 import cn.ahzoo.utils.model.ResultPage;
 import cn.ahzoo.z2blog.enums.ResultCode;
 import cn.ahzoo.z2blog.exception.BizException;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,16 @@ public class SysFriendServiceImpl extends ServiceImpl<SysFriendMapper, Friend>
         implements FriendService {
 
     @Override
-    public ResultList<List<FriendVO>> listFriends() {
-        List<Friend> friendList = list();
+    public ResultList<List<FriendVO>> listFriends(Integer status, Integer type) {
+        LambdaQueryWrapper<Friend> queryWrapper = new LambdaQueryWrapper<>();
+        if (status != null) {
+            queryWrapper.eq(Friend::getStatus, status);
+        }
+        if (type != null) {
+            queryWrapper.eq(Friend::getType, type);
+        }
+        queryWrapper.orderByDesc(Friend::getWeight);
+        List<Friend> friendList = list(queryWrapper);
         List<FriendVO> friendVOList = FriendMapping.INSTANCE.list2VOs(friendList);
         return ResultList.success(ResultPage.emptyPage(), friendVOList);
     }

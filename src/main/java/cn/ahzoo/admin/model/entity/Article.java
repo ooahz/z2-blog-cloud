@@ -1,5 +1,6 @@
 package cn.ahzoo.admin.model.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -41,24 +42,16 @@ public class Article implements Serializable {
     private String thumbnail;
 
     /**
-     * 文章页背景样式
-     */
-    private String style;
-
-    /**
      *
      */
+    @TableField(value = "created_date", fill = FieldFill.INSERT)
     private Date createdDate;
 
     /**
      *
      */
+    @TableField(value = "updated_date", fill = FieldFill.INSERT_UPDATE)
     private Date updatedDate;
-
-    /**
-     * 类型（1：原创，2：转载）
-     */
-    private Integer type;
 
     /**
      * 权重

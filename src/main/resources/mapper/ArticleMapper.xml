@@ -10,10 +10,8 @@
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
-            <result property="style" column="style" jdbcType="VARCHAR"/>
             <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
             <result property="updatedDate" column="updated_date" jdbcType="TIMESTAMP"/>
-            <result property="type" column="type" jdbcType="TINYINT"/>
             <result property="weight" column="weight" jdbcType="TINYINT"/>
             <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="deprecated" column="deprecated" jdbcType="TINYINT"/>
@@ -35,8 +33,8 @@
 
     <sql id="Base_Column_List">
         id,path,title,
-        description,thumbnail,style,
-        created_date,updated_date,type,
+        description,thumbnail,
+        created_date,updated_date,
         weight,status,deprecated
     </sql>
 

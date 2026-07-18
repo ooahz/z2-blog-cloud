@@ -14,15 +14,12 @@ public class ArticleVO {
     private Long id;
     private String path;
     private String title;
-    private String content;
     private List<Long> columnIds;
     private String description;
     private String htmlContent;
     private String thumbnail;
-    private String style;
     private Date createdDate;
     private Date updatedDate;
     private Integer weight;
-    private Integer type;
     private Integer status;
 }

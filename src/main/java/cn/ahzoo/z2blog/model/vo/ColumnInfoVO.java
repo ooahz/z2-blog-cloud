@@ -13,6 +13,5 @@ public class ColumnInfoVO {
     private String thumbnail;
     private String description;
     private Long total;
-    private String style;
     private List<CategoryVO> categoryList;
 }

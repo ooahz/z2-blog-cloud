@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface FriendService extends IService<Friend> {
 
-    ResultList<List<FriendVO>> listFriends();
+    ResultList<List<FriendVO>> listFriends(Integer status, Integer type);
 
     Result<?> saveFriend(FriendDTO friendDTO);
 

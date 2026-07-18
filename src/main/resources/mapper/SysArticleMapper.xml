@@ -10,10 +10,8 @@
             <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
-            <result property="style" column="style" jdbcType="VARCHAR"/>
             <result property="createdDate" column="created_date" jdbcType="TIMESTAMP"/>
             <result property="updatedDate" column="updated_date" jdbcType="TIMESTAMP"/>
-            <result property="type" column="type" jdbcType="TINYINT"/>
             <result property="weight" column="weight" jdbcType="TINYINT"/>
             <result property="status" column="status" jdbcType="TINYINT"/>
             <result property="deprecated" column="deprecated" jdbcType="TINYINT"/>
@@ -21,13 +19,13 @@
 
     <sql id="Base_Column_List">
         id,path,title,
-        description,thumbnail,style,
-        created_date,updated_date,type,
+        description,thumbnail,
+        created_date,updated_date,
         weight,status,deprecated
     </sql>
 
     <sql id="Preview_Article_List">
-        a.id,a.title,a.created_date,a.updated_date,a.type,
+        a.id,a.title,a.created_date,a.updated_date,
         a.weight,a.status,a.deprecated
     </sql>
 
@@ -61,9 +59,6 @@
         <if test="status != null and status != ''">
             AND a.status = #{status}
         </if>
-        <if test="type != null and type != ''">
-            AND a.type = #{type}
-        </if>
         <if test="columnId != null">
             AND a.id IN (
             SELECT article_id
@@ -75,6 +70,15 @@
         LIMIT #{paginationIndex}, #{size}
     </select>
 
+    <select id="listRecentArticleItem" resultType="cn.ahzoo.admin.model.vo.ArticleItemVO">
+        SELECT
+        <include refid="Preview_Article_List"/>
+        FROM b_article a
+        WHERE a.deprecated = 0
+        ORDER BY a.updated_date DESC, a.weight DESC
+        LIMIT #{size}
+    </select>
+
     <select id="selectArticleById" resultType="cn.ahzoo.admin.model.vo.ArticleVO">
         SELECT
         <include refid="Base_Column_List"/>
@@ -84,7 +88,7 @@
     </select>
 
     <select id="selectArticleContentById" resultType="cn.ahzoo.admin.model.dto.ArticleContentDTO">
-        SELECT article_id, content_md AS content
+        SELECT article_id, content_html AS content
         FROM b_article_content
         WHERE article_id = #{articleId}
     </select>
@@ -99,6 +103,13 @@
         SELECT COUNT(1)
         FROM b_article
         WHERE deprecated = 0
+    </select>
+
+    <select id="countArticleByStatus" resultType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM b_article
+        WHERE deprecated = 0
+        AND status = #{status}
     </select>
 
     <insert id="insertArticleColumn">

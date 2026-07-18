@@ -41,11 +41,6 @@ public class Article implements Serializable {
     private String thumbnail;
 
     /**
-     * 文章页背景样式
-     */
-    private String style;
-
-    /**
      *
      */
     private Date createdDate;
@@ -54,11 +49,6 @@ public class Article implements Serializable {
      *
      */
     private Date updatedDate;
-
-    /**
-     * 类型（1：原创，2：转载）
-     */
-    private Integer type;
 
     /**
      * 权重

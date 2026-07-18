@@ -6,6 +6,8 @@ import cn.ahzoo.admin.model.dto.ArticleColumnIdDTO;
 import cn.ahzoo.admin.model.dto.ArticleDTO;
 import cn.ahzoo.admin.model.dto.BriefColumnDTO;
 import cn.ahzoo.admin.service.ArticleColumnService;
+import cn.ahzoo.z2blog.enums.ResultCode;
+import cn.ahzoo.z2blog.exception.BizException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,9 @@ public class SysArticleColumnServiceImpl implements ArticleColumnService {
     @Override
     public void updateArticleColumn(ArticleDTO articleDTO) {
         List<Long> columnIds = articleDTO.getColumnIds();
+        if (ObjectUtils.isEmpty(columnIds) || columnIds.size() == 0) {
+            throw new BizException(ResultCode.INVALID_PARAM.getCode(), "专栏不能为空");
+        }
         List<Long> oldColumnIds = columnMapper.listColumnIdsByArticleId(articleDTO.getId());
         ArrayList<Long> existIds = new ArrayList<>();
         ArrayList<Long> removeIds = new ArrayList<>();

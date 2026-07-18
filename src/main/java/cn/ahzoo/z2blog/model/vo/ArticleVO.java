@@ -14,8 +14,6 @@ public class ArticleVO {
     private String description;
     private String content;
     private String thumbnail;
-    private String style;
     private Date createdDate;
     private Date updatedDate;
-    private Integer type;
 }

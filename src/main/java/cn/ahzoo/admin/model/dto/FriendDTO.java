@@ -10,6 +10,8 @@ public class FriendDTO {
     @NotBlank(message = "网址不能为空")
     private String website;
 
+    private String oldWebsite;
+
     @NotBlank(message = "名称不能为空")
     private String name;
 

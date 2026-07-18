@@ -47,14 +47,20 @@ public class SysArticleServiceImpl extends ServiceImpl<SysArticleMapper, Article
     }
 
     @Override
-    public ResultList<List<ArticleItemVO>> listArticle(int pagination, String status, String type, String columnId) {
+    public ResultList<List<ArticleItemVO>> listArticle(int pagination, String status, String columnId) {
         int paginationIndex = pagination - 1;
         List<ArticleItemVO> articleItemVOS = baseMapper.listArticleItem(
                 paginationIndex * Constant.PAGE_SIZE,
-                Constant.PAGE_SIZE, status, type, columnId);
+                Constant.PAGE_SIZE, status, columnId);
         long countArticle = baseMapper.countArticle();
         return ResultList.success(new ResultPage(countArticle, articleItemVOS.size(), Constant.PAGE_SIZE, pagination),
                 articleItemVOS);
+    }
+
+    @Override
+    public ResultList<List<ArticleItemVO>> listRecentArticles(int size) {
+        List<ArticleItemVO> articleItemVOS = baseMapper.listRecentArticleItem(size);
+        return ResultList.success(ResultPage.emptyPage(), articleItemVOS);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -78,13 +84,17 @@ public class SysArticleServiceImpl extends ServiceImpl<SysArticleMapper, Article
     public Result<?> updateArticle(ArticleDTO articleDTO) {
         updateParamsValidate(articleDTO);
         duplicateValidate(articleDTO);
+
         Article article = ArticleMapping.INSTANCE.dto2Article(articleDTO);
         updateById(article);
         articleDTO.setId(article.getId());
         String formatHtml = ArticleUtil.formatHtml(articleDTO.getHtmlContent());
         articleDTO.setHtmlContent(formatHtml);
         baseMapper.updateArticleContent(articleDTO);
-        articleColumnService.updateArticleColumn(articleDTO);
+        // 只有正常保存时才保存专栏
+        if (Constant.ARTICLE_TYPE_NORMAL == articleDTO.getStatus()) {
+            articleColumnService.updateArticleColumn(articleDTO);
+        }
         return Result.success();
     }
 
@@ -143,7 +153,7 @@ public class SysArticleServiceImpl extends ServiceImpl<SysArticleMapper, Article
 
     private void buildArticleContentByDB(ArticleVO articleVO) {
         ArticleContentDTO articleContentById = baseMapper.selectArticleContentById(articleVO.getId());
-        articleVO.setContent(articleContentById.getContent());
+        articleVO.setHtmlContent(articleContentById.getContent());
     }
 
     private void buildArticleColumn(ArticleVO articleVO) {

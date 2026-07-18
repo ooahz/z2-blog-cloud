@@ -9,7 +9,6 @@
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="thumbnail" column="thumbnail" jdbcType="VARCHAR"/>
-            <result property="style" column="style" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="ColumnItemMap" type="cn.ahzoo.admin.model.vo.ColumnVO">
@@ -25,7 +24,7 @@
 
     <sql id="Base_Column_List">
         id,name,description,
-        thumbnail,style
+        thumbnail
     </sql>
 
     <sql id="VO_Column_List">

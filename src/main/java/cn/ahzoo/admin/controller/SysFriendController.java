@@ -31,8 +31,9 @@ public class SysFriendController {
 
     @Operation(summary = "获取友链列表")
     @GetMapping("")
-    public ResultList<List<FriendVO>> list() {
-        return friendService.listFriends();
+    public ResultList<List<FriendVO>> list(@RequestParam(required = false) Integer status,
+                                           @RequestParam(required = false) Integer type) {
+        return friendService.listFriends(status, type);
     }
 
     @Operation(summary = "新增友链")
