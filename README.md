@@ -23,26 +23,16 @@ Github：（十玖八柒）https://github.com/ooahz
 
 博客后端开源仓库地址：[z2-blog-cloud](https://github.com/ooahz/z2-blog-cloud)
 
-后台管理前端开源仓库地址：[z2-blog-admin](https://github.com/ooahz/z2-blog-admin)
-
 ## 项目预览
 
-### 博客
-
-![](https://s.ahzoo.cn/img/24/open/ob100101.webp)
-![](https://s.ahzoo.cn/img/24/open/ob10005.webp)
-![](https://s.ahzoo.cn/img/24/open/ob10008.webp)
-![](https://s.ahzoo.cn/img/24/open/ob10013.webp)
-![](https://s.ahzoo.cn/img/24/open/ob100102.webp)
-
-### 后台管理
-
-![](https://s.ahzoo.cn/img/24/open/ob100021.webp)
+![](https://s.ahzoo.cn/img/open/blog/open10101.webp)
+![](https://s.ahzoo.cn/img/open/blog/open10102.webp)
+![](https://s.ahzoo.cn/img/open/blog/open10111.webp)
 
 ## 项目技术栈
 
 前端主要技术栈：
-Vue3、Nuxt3、Vite、Pinia、TypeScript、Tailwind CSS、SCSS
+Vue3、Nuxt4、Vite、Pinia、TypeScript、Tailwind CSS、SCSS
 
 后端主要技术栈：
 JDK21、SpringBoot 3+、Mybatis Plus、Mysql
@@ -63,26 +53,12 @@ mvn clean package
 
 ## 数据库文件
 
-数据库文件在[project-db](https://github.com/ooahz/project-db)仓库中，根据当前项目（z2blog-lite)对应的版本选择数据库文件
+运行当前项目`.db`文件夹下的数据库文件
 
-数据库文件默认为空，如果需要登录后台管理，需要先在数据库中新增账号数据。
+默认账号密码：
 
-数据示例：
-
-在`sys_user表`新增账号
-
-账号：`admin@ahzoo.cn`
-密码：`a123456`
-
-| id | email | password | salt | status |
-| :--:| :----: | :------: | :---: | :--: |
-| 1001 | `admin@ahzoo.cn` | `08780460b94d39592c9eb1b1cbc01a89654a756bded0d05000972361394c782f` | `5c7a7321841702a50b834e` | 1 |
-
-在`sys_role`表中新增角色：
-
-| id |user_id | role_code |
-| :--:| :----: | :---: |
-| 1 | 1001 | admin |
+`test@ahzoo.cn`
+`123456`
 
 ## 赞助支持
 

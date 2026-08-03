@@ -7,7 +7,7 @@ import cn.ahzoo.admin.model.vo.ArticleVO;
 import cn.ahzoo.admin.service.SysLogService;
 import cn.ahzoo.comment.utils.IpUtil;
 import cn.dev33.satoken.stp.StpUtil;
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
